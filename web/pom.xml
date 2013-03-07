@@ -44,14 +44,38 @@
 				    <artifactId>jsp-api</artifactId>
 				</exclusion>
 				<exclusion>
+				    <groupId>javax.portlet</groupId>
+				    <artifactId>portlet-api</artifactId>
+				</exclusion>
+				<exclusion>
 				    <groupId>javax.mail</groupId>
 				    <artifactId>mail</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.icefaces</groupId>
+			<artifactId>icefaces-compat</artifactId>
+			<version>${icefaces.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.el</groupId>
+					<artifactId>el-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>inademweb-${pom.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
