@@ -16,9 +16,9 @@ Requisitos para instalar ambiente:
 
 Pasos para montar ambiente de desarrollo:
 
-#. Copiar instalador de oracle a la carpeta: vagrant/modules/oracle/files
-#. Compilar el proyecto (desde la raiz): mvn clean install
-#. Executar el comando: vagrant up
+1. Copiar instalador de oracle a la carpeta: vagrant/modules/oracle/files
+2. Compilar el proyecto (desde la raiz): mvn clean install
+3. Executar el comando: vagrant up
 
 TODO:
 =====
