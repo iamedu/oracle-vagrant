@@ -48,6 +48,7 @@ Vagrant::Config.run do |config|
 
     chef.add_recipe "apt"
     chef.add_role "oracle-server"
+    chef.add_role "inadem"
   
   end
 
