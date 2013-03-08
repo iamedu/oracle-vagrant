@@ -11,14 +11,13 @@ Requisitos para instalar ambiente:
 * Java 7
 * Maven
 * Vagrant
-* Instalador de oracle para linux: (oracle-xe-11.2.0-1.0.x86_64.rpm.zip) se puede descargar de http://www.oracle.com/technetwork/database/express-edition/downloads/index.html
 * Conexión a internet
 
 Pasos para montar ambiente de desarrollo:
 
-1. Copiar instalador de oracle a la carpeta: vagrant/modules/oracle/files
-2. Compilar el proyecto (desde la raiz): mvn clean install
-3. Executar el comando: vagrant up
+1. Compilar el proyecto (desde la raiz): mvn clean install
+2. Executar el comando: vagrant up
+3. Ten paciencia, el proceso descarga una maquina virtual, oracle, glassfish entre algunas otras cosas
 
 TODO:
 =====
@@ -26,3 +25,4 @@ TODO:
 * Migrar el proyecto viejo
 * Cargar script de arranque
 * Deployarlo automaticamente
+
