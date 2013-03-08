@@ -71,11 +71,15 @@ dpkg_package "oracle" do
 	source "/tmp/oracle-xe_11.2.0-2_amd64.deb"
 end
 
-unless File.exists? "/etc/sysconfig/oracle-xe"
+unless File.exists? "/etc/oracle-installed"
 
 	execute "configure oracle" do
 		command "/etc/init.d/oracle-xe configure responseFile=/tmp/xe.rsp"
 		action :run
+	end
+
+	file "/etc/oracle-installed" do
+		action :create
 	end
 
 end
@@ -85,9 +89,3 @@ service "oracle-xe" do
 	action [ "enable", "start"]
 end
 
-bash "set remote access" do
-	code <<-EOH
-	source /etc/profile.d/oracle-env.sh
-	echo 'EXEC DBMS_XDB.SETLISTENERLOCALACCESS(FALSE);' | sqlplus -s system/#{node["oraclexe"]["password"]}@localhost
-	EOH
-end

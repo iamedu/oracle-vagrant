@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-default["oraclexe"]["mirror"] = ""
+default["oraclexe"]["mirror"] = "http://dl.dropbox.com/u/4586016/oracle-xe_11.2.0-2_amd64.deb"
 default["oraclexe"]["listener_port"] = "1521"
 default["oraclexe"]["http_port"] = "8080"
 default["oraclexe"]["password"] = "password"
