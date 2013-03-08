@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="fpymeinadempu" transaction-type="JTA">
+		<jta-data-source>jdbc/inademDS</jta-data-source>
+		<class>mx.gob.economia.inadem.entity.Entidad</class>
+		<class>mx.gob.economia.inadem.entity.catalogo.Catalogo</class>
+		<class>mx.gob.economia.inadem.entity.beneficiario.PreguntaSeguridad</class>
+		<class>mx.gob.economia.inadem.entity.seguridad.Rol</class>
+		<class>mx.gob.economia.inadem.entity.beneficiario.Beneficiario</class>
+		<class>mx.gob.economia.inadem.entity.seguridad.Usuario</class>
+		<class>mx.gob.economia.inadem.entity.representante.RepresentanteLegal</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.Direccion</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.Programa</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.TipoApoyo</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.Convocatoria</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.ResumenEjecutivo</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.Solicitud</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.MetaProyecto</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.CoberturaGeografica</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.DocumentoSolicitud</class>
+		<class>mx.gob.economia.inadem.entity.ubicacion.Ubicacion</class>
+		<class>mx.gob.economia.inadem.entity.ubicacion.Estado</class>
+		<class>mx.gob.economia.inadem.entity.ubicacion.Municipio</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.Documento</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.Participacion</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.ParticipacionAnterior</class>
+		<class>mx.gob.economia.inadem.entity.ubicacion.TipoAsentamiento</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.PresupuestoParticipante</class>
+		<class>mx.gob.economia.inadem.entity.ubicacion.TipoVialidad</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.Participante</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.EstadoSolicitud</class>
+		<class>mx.gob.economia.inadem.entity.solicitud.SolicitudApoyo</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
+		<properties>
+			<property name="eclipselink.logging.level" value="SEVERE"/>
+		</properties>
+	</persistence-unit>
+</persistence>

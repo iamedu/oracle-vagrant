@@ -1,0 +1,250 @@
+/* Revisión 1.0.0 Febrero 20, 2013 */
+/* Sistema FONFOPYME INADEM 2013 */
+
+body {
+	font: 1em 'Times New Roman';
+	color: #666666;
+    height: 100%;
+    min-height: 100%;
+    background-color: #FAFAFA;
+}
+
+.errors {
+	font-size: 14px;
+	font-weight: normal;
+	color: red;
+	vertical-align: middle;
+	text-align: left;
+}
+
+.msg_errors {
+	
+	font-size: 14px;
+	font-weight: normal;
+	color: red;
+	vertical-align: middle;
+	text-align: left;
+	list-style: circle;
+	list-style-type: circle;
+
+}
+
+.msg_errors_center {
+	
+	font-size: 14px;
+	font-weight: normal;
+	color: red;
+	vertical-align: middle;
+	text-align: center;
+	list-style: circle;
+	list-style-type: circle;
+
+}
+
+
+.section_title {
+	color: #666666;
+	text-transform: none;
+	font-family: 'Times New Roman';
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+.section_header {
+	color: #666666;
+	text-transform: none;
+font-family: 'Times New Roman';
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	text-decoration: none;
+	width: 950px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+
+.section_header_2 {
+	color: #666666;
+	text-transform: none;
+	font-family: 'Times New Roman';
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	text-decoration: none;
+	
+}
+
+.seccion_footer{
+	color: #666666;
+	text-transform: none;
+	font-family: 'Times New Roman';
+	font-size: 10px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.section_login {
+	color: #666666;
+	text-transform: none;
+	font-family: 'Times New Roman';
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	text-decoration: none;
+	width:400px;
+}
+
+
+.text_label {
+	color: #666666;
+	text-transform: none;
+	font-family: 'Times New Roman';
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	text-decoration: none;	
+}
+
+.input_simple {
+	width:150px;
+	font: 12px Arial;
+}
+
+.input_large {
+	width:250px;
+	font: 12px Arial;
+}
+
+.input_short {
+	width:50px;
+	font: 12px Arial;
+}
+.button {
+	border: 1px solid gray;
+	color: #5b5b76;
+	font-size: 12px;
+	margin:0;
+	padding:2px;
+	background-position: center top;
+	width: 9em;
+}
+
+
+.caja {
+	border: 1px solid #CCCCCC; 
+	display: block;
+	background: #F5F5F5;
+	-moz-border-radius:10px 10px 10px 10px;
+	font-family:'Times New Roman',Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	width:250px;
+}
+
+.caja_large {
+	border: 1px solid #CCCCCC; 
+	display: block;
+	background: #F5F5F5;
+	-moz-border-radius:10px 10px 10px 10px;
+	font-family:'Times New Roman',Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	width:250px;
+}
+
+.caja_text{
+	font-size:8px;
+	text-align:left;
+	width:950px;
+	font-weight:normal;
+	font-family:'Times New Roman',Arial, Helvetica, sans-serif;
+	padding-top: 15px;
+	resize: none;
+}
+
+
+.caja_large_capitals {
+	border: 1px solid #CCCCCC; 
+	display: block;
+	background: #F5F5F5;
+	-moz-border-radius:10px 10px 10px 10px;
+	font-family:'Times New Roman',Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	width:250px;
+	text-transform: uppercase;
+}
+
+
+.cuadro_libre {
+	display: table;
+	float: none;
+	min-height: 7em;
+	font-size: 1em;
+	width: 900px;
+	text-align: center;
+	/*border: none;*/
+	
+}
+
+.column_1{
+background-color: #B8CCE4;
+    border-right: 1px solid #C8C8FF;
+    color: white;
+    font-family: 'Times New Roman';
+    font-weight: bold;
+    height: 30px;
+    margin-right: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.bodyDiv{
+	width: 1100px;
+	margin: auto;	
+}
+.headerDiv{
+	width: 100%;
+	height: 150px;
+	background-image: url("../img/logoSE_hoz.png");
+	background-repeat: no-repeat;
+}
+.menuDiv{
+	width: 100%;
+	height: 35px; 
+}
+.messagesDiv{
+	width: 100%;
+}
+.contentDiv{
+	width: 100%;
+	min-height: 400px;
+	display:inline;
+}
+.footerDiv{
+	width: 100%;
+	height: 100px;
+}
+
+.help{
+	padding-right: 5px;
+}
+
+.imgDowload{
+	width: 32px;
+	height: 32px;
+	
+}
+
+
+
+/* @end */
+

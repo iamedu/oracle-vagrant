@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="../xmlhttp/css/rime/rime.css"  />
+	<ice:outputStyle href="../styles/estilo.css" />
+	<ice:outputStyle href="../css/style.css" />
+</h:head>
+<h:body>
+	
+	<div class="bodyDiv"  id="header">
+		<div class="headerDiv" >
+		
+			<ui:include src="../header.xhtml"   />
+		</div>
+    	<div class="content-main" align="left">
+			<div class="content">
+			<h1 class="title">Convocatorias</h1>
+			
+					
+					
+			<ice:form id="contentForm">
+				
+				
+				
+					
+					<ace:dataTable rendered="true" value="#{pbConvocatoria.listConvocatorias}"
+						var="convocatoria"  >
+						<ace:column headerText="ID">
+							<h:outputText value="#{convocatoria.descripcion}" />
+						</ace:column>
+						<ace:column headerText="Nombre">
+							<h:outputText value="#{convocatoria.nombre}" />
+						</ace:column>
+						<ace:column headerText="Ver" rendered="true">
+
+							<ice:commandButton id="btnVerDocumentoAsociado"
+								actionListener="#{pbUtilities.descargarDocumento}"
+								image="../img/icon/doc.png" styleClass="imgDowload"
+								rendered="#{convocatoria.urlPdf != ''}">
+								<f:attribute name="archivo" value="#{convocatoria.urlPdf}" />
+							</ice:commandButton>
+						</ace:column>
+						<ace:column headerText="" rendered="true">
+							<ice:commandButton id="btnCrearSolicitud" 
+								actionListener="#{pbConvocatoria.btnCrearSolicitudAction}"
+								styleClass="button" value="Participar">
+								<f:attribute name="convocatoria" value="#{convocatoria}" />
+							</ice:commandButton>
+						</ace:column>
+					</ace:dataTable>
+				
+			</ice:form>
+			</div>
+		</div>
+		<div id="footer">
+			<ui:include src="../footer.xhtml"/>
+		</div>
+		
+	</div>
+	 <link type="text/css" rel="stylesheet" href="http://www.encuentra.gob.mx/css/apf.css"/>
+    <script type="text/javascript" src="http://www.encuentra.gob.mx/api/gobmxWidgetAPI-min.js"></script>
+    <script type="text/javascript" src="http://www.encuentra.gob.mx/properties/gobmxWidgetAPI-conf.js"></script>
+    <script>
+      _gmx.loadGobMXsearchAPI({container:'gobmx-searchbox-container-se',client:'se',newWindow:true});
+      
+    </script>
+    <script type="text/javascript" src="../js/utils/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/utils/general.js"></script>
+    <script type="text/javascript" src="../js/utils/slideMe.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+</h:body>
+
+</html>

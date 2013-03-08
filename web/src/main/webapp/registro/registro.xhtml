@@ -1,0 +1,906 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="../xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="../styles/estilo.css" />
+	<ice:outputStyle href="../css/style.css" />
+</h:head>
+<h:body>
+
+	<div class="bodyDiv" id="header">
+		<div class="headerDiv">
+			<ui:include src="../header.xhtml"/>
+		</div> 
+		<div id="content-main">
+			<div class="content">
+				<h1 class="title">Pre-Registro de Candidatos</h1>
+
+				<div style="width: 980px" align="left">
+					<ice:panelGroup>
+						<div align="left">
+			 				<ace:tooltip for="help"
+								value="Para regitrarse en el sistema proporcione los datos solicitado y presione el boton \'Registrar'."></ace:tooltip>
+							<ice:graphicImage id="help" url="../img/icon/help.png"
+								visible="true" width="16px" height="16px" styleClass="help" />
+							<ice:outputLabel
+								value="Si aún no cuenta con clave de acceso para registrar solicitudes de apoyo en el ejercicio 2013"
+								styleClass="section_header" />
+						</div>
+						<h:form id="contentTipoForm">
+						<div style="width: 980px" align="left">
+							<ice:panelGrid columns="3">
+								<ice:outputLabel value="* Tipo de Persona" />
+								<ice:selectOneMenu partialSubmit="true"
+									value="#{pbRegistro.currentBeneficiario.tipoPersona}">
+									<f:selectItem itemValue="" itemLabel="Seleccione..." />
+									<f:selectItem itemValue="MORAL" itemLabel="MORAL" />
+									<f:selectItem itemValue="FISICA" itemLabel="FÍSICA" />
+								</ice:selectOneMenu>
+							</ice:panelGrid>
+
+							<ice:panelGroup rendered="#{pbRegistro.errorMessage != null}"
+								styleClass="msg_errors">
+								<div style="height: 5px;" />
+								<ul>
+									<li><h:outputText value="#{pbRegistro.errorMessage}" /></li>
+								</ul>
+								<div style="height: 5px;" />
+							</ice:panelGroup>
+				</div>
+				</h:form>
+				</ice:panelGroup>
+				<h:form id="contentFisicaForm">
+					<div style="width: 980px" align="left">
+					<ace:panel header="Datos Generales de la Persona Física"
+						rendered="#{pbRegistro.currentBeneficiario.tipoPersona=='FISICA'}">
+
+						<div align="left">
+							<ice:panelGrid columns="3" style="width:950px;">
+								<ice:outputLabel value="* R.F.C." styleClass="section_title" />
+								<ace:maskedEntry value="#{pbRegistro.currentBeneficiario.rfc}"
+									styleClass="caja_large_capitals" id="rfcFisica"
+									requiredMessage="El campo rfc es requerido" required="true"
+									mask="aaaa 99 99 99 **9" style="width:350px;"/>
+								<ice:message for="rfcFisica" errorClass="errors" />
+								<!-- <ice:panelGroup>
+							    <div align="left">
+									<ace:tooltip for="helpRFC" position="center" value="El RFC son las dos primeras letras de su apellido paterno, primera letra del apellido materno, 
+																	fecha de nacimiento a dos digitos y los tres digitos de la homoclave"/>
+									<ice:graphicImage id="helpRFC" url="../img/icon/help.png" visible="true" width="16px" height="16px" styleClass="help" />
+								</div>
+							</ice:panelGroup> 
+							 -->
+								<ice:outputLabel value="* #{msgs.label_name}"
+									styleClass="section_title" />
+								<ice:inputText value="#{pbRegistro.currentBeneficiario.nombre}"
+									styleClass="caja_large_capitals" id="nombre"
+									requiredMessage="El campo nombre es requerido" required="true" style="width:250px;"/>
+								<ice:message for="nombre" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_first_name}"
+									styleClass="section_title" />
+								<ice:inputText
+									value="#{pbRegistro.currentBeneficiario.apellidoPaterno}"
+									styleClass="caja_large_capitals" id="apaterno"
+									requiredMessage="El campo apellido paterno es requerido"
+									required="true" style="width:250px;"/>
+								<ice:message for="apaterno" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_last_name}"
+									styleClass="section_title" />
+								<ice:inputText
+									value="#{pbRegistro.currentBeneficiario.apellidoMaterno}"
+									styleClass="caja_large_capitals" id="amaterno"
+									requiredMessage="El campo apellido materno es requerido"
+									required="true" style="width:250px;"/>
+								<ice:message for="amaterno" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_email}"
+									styleClass="section_title" />
+								<ice:inputText value="#{pbRegistro.currentBeneficiario.email}"
+									styleClass="caja_large" id="email"
+									requiredMessage="El campo correo electrónico es requerido"
+									validatorMessage="El campo email es inválido" required="true" style="width:250px;">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</ice:inputText>
+
+								<ice:message for="email" styleClass="errors" errorClass="errors" />
+
+
+								<ice:outputLabel value="* #{msgs.label_confirm_email}"
+									styleClass="section_title" />
+								<ice:inputText value="#{pbRegistro.confirmacionCorreo}"
+									styleClass="caja_large" id="emailconfirm"
+									requiredMessage="El campo confirmación de correo electrónico es requerido"
+									validatorMessage="El campo de confirmación de email es inválido"
+									required="true" style="width:250px;">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</ice:inputText>
+								<ice:message for="emailconfirm" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_access_password}"
+									styleClass="section_title" />
+								<ice:inputSecret redisplay="true"
+									value="#{pbRegistro.currentBeneficiario.password}"
+									styleClass="caja_large" id="password"
+									requiredMessage="El campo contraseña es requerido"
+									validatorMessage="El campo contraseña es inválido (longitud min 8)"
+									required="true" style="width:250px;">
+									<f:validateLength minimum="8" />
+
+								</ice:inputSecret>
+								<ice:message for="password" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_access_confirm_password}"
+									styleClass="section_title" />
+								<ice:inputSecret redisplay="true"
+									value="#{pbRegistro.confirmacionPassword}"
+									styleClass="caja_large" id="passwordconfirm"
+									requiredMessage="#{msgs.access_password_empty}"
+									validatorMessage="El campo contraseña es inválido (longitud min 8)"
+									required="true" style="width:250px;">
+									<f:validateLength minimum="8" />
+								</ice:inputSecret>
+								<ice:message for="passwordconfirm" errorClass="errors" />
+
+
+								<ice:outputLabel value="* #{msgs.label_security_question}"
+									styleClass="section_title" />
+								<ice:selectOneMenu styleClass="input_large"
+									value="#{pbRegistro.currentBeneficiario.preguntaSeguridad}"
+									converter="EntidadConverter">
+									<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+										noSelectionOption="true" style="width:250px;"></f:selectItem>
+									<f:selectItems
+										value="#{pbRegistro.catalogoItemsMap['preguntaSeguridadType'].activeItems}"
+										var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+								</ice:selectOneMenu>
+								<ice:outputLabel value="" />
+
+								<ice:outputLabel value="* #{msgs.label_security_answer}"
+									styleClass="section_title" />
+								<ice:inputText id="respuestaPregunta"
+									value="#{pbRegistro.currentBeneficiario.respuestaPregunta}"
+									styleClass="caja_large"
+									requiredMessage="El campo respuesta pregunta es requerido"
+									required="true" style="width:250px;">
+								</ice:inputText>
+								<ice:message for="respuestaPregunta" errorClass="errors" />
+
+							</ice:panelGrid>
+							<br />
+							<ace:panel header="Ubicaci&oacute;n">
+								<ice:panelGrid columns="4">
+									<ice:outputLabel value="*Tipo Vialidad:" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidad}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Nombre Vialidad:" />
+									<ice:outputLabel value="Número Exterior 1:" />
+									<ice:outputLabel value="Número Exterior 2:" />
+									<ice:outputLabel value="Número Interior:" />
+
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.calle}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.numeroExterior}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.numeroExterior2}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.numeroInterior}" />
+
+									<ice:outputLabel value="Tipo Asentamiento:" />
+									<ice:outputLabel value="Colonia:" />
+									<ice:outputLabel value="Código Postal:" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.tipoAsentamiento}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['tiposAsentamientoType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.colonia}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.codigoPostal}" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="*Estado:" />
+									<ice:outputLabel value="*Municipio:" />
+									<ice:outputLabel value="Localidad" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.estado}"
+										converter="EntidadConverter" partialSubmit="true">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['estadosType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.municipio}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.currentBeneficiario.ubicacion.estado.municipios}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.localidad}" />
+									<ice:outputLabel value="" />
+
+								</ice:panelGrid>
+								<ace:panel header="Entre Vialidades">
+									<ice:panelGrid columns="2">
+										<ice:outputLabel value="* Tipo Vialidad 1:" />
+										<ice:outputLabel value="Nombre Vialidad 1:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidad1}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbRegistro.currentBeneficiario.ubicacion.vialidad1}" />
+										<ice:outputLabel value="* Tipo Vialidad 2:" />
+										<ice:outputLabel value="Nombre Vialidad 2:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidad2}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbRegistro.currentBeneficiario.ubicacion.vialidad2}" />
+										<ice:outputLabel value="Tipo Vialidad Posterior:" />
+										<ice:outputLabel value="Nombre Vialidad Posterior:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidadPosterior}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbRegistro.currentBeneficiario.ubicacion.vialidadPosterior}" />
+
+
+									</ice:panelGrid>
+								</ace:panel>
+								<ice:panelGrid columns="1">
+									<ice:outputLabel value="Descripción de la ubicación" />
+									<ice:inputTextarea
+										value="#{pbRegistro.currentBeneficiario.ubicacion.descripcion}"
+										cols="100" rows="2" />
+
+								</ice:panelGrid>
+							</ace:panel>
+
+							<br />
+							<ice:panelGrid columns="1">
+								<ice:outputLabel value="Términos y condiciones:"  />
+							</ice:panelGrid>
+							<div style="height: 5px;"/>
+							<ice:panelGrid columns="1" >
+								<div class="caja_terminos" align="left" style="width:950px;" >
+								<div style="height: 15px;"/>
+								<div>
+								La utilización de este Portal y de cualquiera de las aplicaciones del mismo constituye el pleno y expreso consentimiento por parte del Usuario para observar y sujetarse a cada uno de los Términos y Condiciones que aquí se contienen, así como a las políticas de privacidad, políticas de seguridad y, en su caso, cualesquiera otros documentos que conformen parte o regulen la participación del Usuario en este Portal.  
+						        <div style="height: 15px;"/>	
+							    <strong>Definiciones</strong>
+							    <div style="height: 5px;"/>
+								Para efectos de las presentes Condiciones de Uso, se entiende por:
+							    <div style="height: 5px;"/>
+								<strong>INADEM.-</strong> Al Instituto Nacional del Emprendedor.<br/>
+								<strong>Portal.-</strong> Aplicación informática, diseñado como acceso único al sitio del INADEM cuyo objetivo es ofrecer al Usuario, de forma fácil e integrada, el acceso a una serie de recursos y Servicios que proporciona el Instituto.<br/>
+								<strong>Servicio.-</strong> Conjunto de herramientas que se ofrecen a través del portal del INADEM para realizar trámites y proporcionar información al Usuario.<br/>
+								<strong>Usuario.-</strong> Cualquier persona física o moral que acceda al Portal de INADEM <a href="http://www.inadem.gob.mx" target="_blank">http://www.inadem.gob.mx</a><br/>
+								<div style="height: 5px;"/>
+								<strong>Obligaciones del Usuario</strong><br/>
+								<div style="height: 5px;"/>
+								Al utilizar este Portal el Usuario se compromete a cumplir con los Términos y Condiciones de uso establecidos en el presente documento, reconoce haber leído, entendido y estar de acuerdo en sujetarse a éstos. 
+								El administrador se reserva el derecho de suspender el servicio a todos aquellos usuarios que no cumplan con lo estipulado en las Condiciones de Uso. 
+								<br/>
+	    						<div style="height: 5px;"/>
+								<strong>Términos y Condiciones Generales</strong>
+							    <div style="height: 5px;"/>
+								La información y los Servicios que ofrece el Portal, hacen referencia exclusivamente, a las Reglas de Operación 2013 del Fondo PYME y demás normatividad relacionada. El INADEM no es responsable por el uso externo que se realice de la misma. 
+							    <div style="height: 5px;"/>
+								La información que se presenta en este sitio tiene carácter estrictamente informativo y su utilización como referencia para tomar decisiones es responsabilidad exclusiva del usuario. El INADEM	no se hace responsable por los juicios de valor o las interpretaciones que los usuarios realicen sobre la exactitud o validez de la información publicada, así como por cualquier perjuicio o reclamo de cualquier otra índole que pudiera ser imputable al uso de la información.
+							    <div style="height: 5px;"/>
+								La información y los servicios que ofrece el Portal hacen referencia y son formulados exclusivamente para la publicación de convocatorias y participación en ellas que se realizan en el marco del mismo.
+								<div style="height: 5px;"/>
+								Por el hecho de hacer uso de la información y de los Servicios, el Usuario expresa su aceptación y está de acuerdo con los Términos y Condiciones del presente documento, así como con las modificaciones que al mismo realice el INADEM; como se menciona en el apartado Cambios a las Condiciones de Uso.
+							    <div style="height: 5px;"/>
+								<strong>Acceso y Uso del Portal</strong>
+	    						<div style="height: 5px;"/>
+								Los Servicios que presta el Portal son gratuitos,  el acceso sólo puede hacerse mediante registro del Usuario. 
+	    						<div style="height: 5px;"/>
+								El mecanismo de seguridad para ingresar al Portal y los servicios que proporciona, es la asignación de manera personalizada de una cuenta de acceso (nombre de usuario y contraseña). El usuario será el único responsable de su contraseña y el uso correcto que se le dé a la misma para los fines especificados. Es importante que el usuario proteja su clave, ya que si otras personas hacen un mal uso del Portal usando la misma contraseña se corre el riesgo de perder acceso al sitio. Los daños y perjuicios que llegue a sufrir el INADEM como consecuencia de la inobservancia por parte del Usuario de sus obligaciones serán responsabilidad de éste último.
+							    <div style="height: 10px;"/>
+								Es compromiso de los usuarios garantizar la veracidad y autenticidad de los datos que ingresen al Portal a través del formulario establecido para ello. 
+								<div style="height: 10px;"/>
+								Los usuarios del portal podrán modificar sus datos de registro a través de las herramientas que el INADEM les proporcione.
+								<div style="height: 10px;"/>
+								Es compromiso de los usuarios de los servicios que proporciona el Portal que la información que se obtenga del sitio se utilice únicamente para los propósitos informativos y de participación en las convocatorias.
+								<div style="height: 5px;"/>
+								Es responsabilidad de los usuarios mantener actualizados los datos personales, los cuales serán utilizados por el Portal durante la operación del mismo.
+							    <div style="height: 5px;"/>
+								Los usuarios se comprometen a acceder a la información contenida en el Portal, exclusivamente mediante los mecanismos que el INADEM diseñe, autorice y promueva.
+							    <div style="height: 5px;"/>
+								El Usuario se obliga a salir del Portal de la forma en que el INADEM lo establece en sus manuales para evitar que un tercero haga uso de los permisos asignados a su cuenta de acceso. 
+							    <div style="height: 10px;"/>
+							    <strong>Datos de Carácter Personal</strong>
+							    <div style="height: 10px;"/>
+							    El Portal solicita información de carácter personal al Usuario para, solicitar un apoyo, presentar una queja o comentario. Esta información, que además cumple con el propósito de diseñar un Portal personalizado, incluye nombre, domicilio, teléfono, dirección de correo electrónico, entre otros. 
+								<div style="height: 5px;"/>
+							    El INADEM se encuentra facultado para revisar y evaluar la veracidad de la información y documentación de los usuarios, que con motivo de las diversas convocatorias integren y custodien.
+							    <div style="height: 5px;"/>
+								La información que se presente por parte de los se tratará en términos de la Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental.<br/>
+								Las direcciones de correo electrónico serán utilizadas para responder a preguntas específicas del Usuario y para la difusión de información relacionada con el INADEM, y sólo serán resguardadas para los propósitos señalados.<br/> 
+								<div style="height: 10px;"/>
+								<strong>Propiedad intelectual</strong>
+								<div style="height: 10px;"/>
+								El logotipo, gráficos o iconos distintivos, los nombres de dominio <a href="http://www.inadem.gob.mx" target="_blank">http://www.inadem.gob.mx</a> , <a href="http://www.sistemaemprendedor.gob.mx" target="_blank">www.sistemaemprendedor.gob.mx</a> , contenidos, diseños, programas de cómputo y, en general, cualquier creación intelectual existente en este Portal, así como el propio Portal en su conjunto son propiedad exclusiva del INADEM y de la Secretaría de Economía.<br/>
+								El Usuario no adquiere ningún derecho de propiedad en relación con la Propiedad Intelectual, por tener carácter de Usuario y en ningún momento dicho uso será considerado como una autorización ni licencia para utilizar los Servicios propios del Portal con fines distintos a aquellos para los cuales fue creado.<br/>
+								Queda absolutamente prohibida la utilización de los contenidos, logotipos y formatos de registro que utiliza el Portal, salvo que el INADEM lo autorice en forma explicita y por escrito.<br/>
+								En caso de hacer uso de cualquier tipo de información contenida en el Portal, de manera impresa, electrónica, a través de un sistema de cómputo o cualquier otro medio, deberá citarse la fuente de información.<br/>
+								<div style="height: 10px;"/>
+								<strong>Seguridad de la información</strong><br/>
+								<div style="height: 10px;"/>
+								El INADEM mantiene procedimientos diseñados para proteger la información confidencial del Usuario y el uso por parte del Usuario de cualquiera de los productos y Servicios proporcionados a través del Portal.<br/>  
+								El Usuario entiende y acepta que, no obstante que el INADEM protege la información transmitida a través del Portal, dada la naturaleza de Internet, El INADEM no garantiza que toda transacción electrónica se encuentre libre de riesgo; por lo que el Usuario libera de manera absoluta y sin limitación alguna al INADEM  de cualquier tipo de responsabilidad, civil, penal, administrativa, así como de los daños y perjuicios o cualquier otra que pudiera ser ocasionados por el mal uso, por terceras personas de la información generada, transmitida, recibida o archivada en el Portal .<br/>
+								<div style="height: 10px;"/>
+								<strong>Responsabilidad limitada</strong>
+								<div style="height: 10px;"/>
+								El INADEM presenta la información con la mayor oportunidad posible, no obstante lo anterior, no asume responsabilidad legal alguna o de cualquier otra índole por la precisión, oportunidad, contenido o uso de la misma que se dé por terceros.<br/>	
+							    <div style="height: 10px;"/>
+								<strong>Responsabilidad por daños y perjuicios</strong>
+								<div style="height: 10px;"/>
+								El Usuario responderá de los daños y perjuicios que el INADEM sufra como consecuencia del incumplimiento de cualquiera de las obligaciones a las que queda sometido el Usuario. <br/>
+							    <div style="height: 10px;"/>
+								<strong>Contingencia</strong><br/>
+								<div style="height: 10px;"/>
+								El Usuario acepta expresamente que el INADEM no será responsable de los daños y perjuicios que sufra si por caso fortuito, fuerza mayor o por cualquier otro acontecimiento o circunstancia inevitable, más allá del control razonable del INADEM, no pudiera hacer uso del Portal o realizar alguna de las operaciones que el mismo ofrece.<br/>
+								<div style="height: 10px;"/>
+								<strong>Usos permitidos</strong><br/>
+								<div style="height: 10px;"/>
+								El uso del Portal es bajo la exclusiva responsabilidad del Usuario, quien en todo caso deberá realizar las operaciones correspondientes de acuerdo con el fin para el cual se creó el Portal; por lo que el Usuario se obliga a utilizarlo de modo que no se atente contra las leyes de los Estados Unidos Mexicanos, las buenas costumbres, la dignidad de las personas y los derechos de terceros.<br/>		
+								<div style="height: 10px;"/>
+								<strong>Exclusión de responsabilidad por el funcionamiento del Portal</strong>
+								<div style="height: 10px;"/>
+								Con el fin de disminuir el riesgo de introducción de virus en el Portal, el INADEM utiliza los programas institucionales de detección y eliminación de virus. No obstante, el INADEM no garantiza la ausencia de virus ni de otros elementos en el Portal introducidos por terceros ajenos al INADEM que puedan producir alteraciones en los sistemas físicos o lógicos de los Usuarios. En consecuencia, el INADEM no será en ningún caso responsable de cualquier daño y perjuicio de toda naturaleza que pudieran derivarse de la presencia de virus u otros elementos que puedan producir alteraciones en los sistemas lógicos, documentos electrónicos o ficheros de los Usuarios.
+								<div style="height: 10px;"/>
+								<strong>Cambios a las Condiciones de Uso </strong>
+								<div style="height: 10px;"/>
+								El INADEM se reserva el derecho de modificar las presentes Condiciones de Uso en cualquier tiempo, mediante simple publicación de las nuevas disposiciones aplicables, siendo el Usuario responsable de revisar las Condiciones de Uso periódicamente. El uso del Portal constituirá la aceptación del Usuario, de las disposiciones aplicables al Portal ya sea que éstas se encuentren en las presentes Condiciones de Uso. El Usuario es responsable de revisar periódicamente dichos cambios.<br/>
+								El Usuario declara haber leído y aceptar íntegramente los presentes Términos y Condiciones vigentes en el momento de acceder al Portal y/o usar los Servicios.<br/>
+								En el caso de que el Usuario no esté de acuerdo con las disposiciones del presente documento deberá abstenerse de utilizar el Portal y/o de realizar operaciones a través del Portal.<br/>
+								</div>
+								</div>
+							</ice:panelGrid>
+						    <div style="height: 10px;"/>
+							<ice:panelGrid columns="1">
+								<ice:selectBooleanCheckbox id="terminos"
+									value="#{pbRegistro.terminos}"
+									requiredMessage="Debe aceptar los términos y condiciones"
+									required="true">
+									<ice:outputLabel value="#{msgs.label_terms}"
+										styleClass="section_message" />
+								</ice:selectBooleanCheckbox>
+							</ice:panelGrid>
+							<ice:panelGrid columns="1">
+								<ice:message for="terminos" errorClass="errors" />
+							</ice:panelGrid>
+							<br/>
+	
+							<ice:panelGrid columns="2">
+								<ice:commandButton value="Registrar" styleClass="button"
+									actionListener="#{pbRegistro.btnEnviarAction}" />
+								<ice:commandButton value="Cancelar" styleClass="button"
+									actionListener="#{pbRegistro.btnCancelarAction}"
+									immediate="true" />
+							</ice:panelGrid>
+
+						</div>
+
+
+					</ace:panel>
+</div>
+				</h:form>
+				<h:form id="contentMoralForm">
+				<div style="width: 980px" align="left">
+					<ace:panel header="Datos Generales de la Persona Moral"
+						rendered="#{pbRegistro.currentBeneficiario.tipoPersona=='MORAL'}">
+
+						<div align="left">
+							<ice:panelGrid columns="3">
+								<ice:outputLabel value="* R.F.C." styleClass="section_title" />
+								<ace:maskedEntry value="#{pbRegistro.currentBeneficiario.rfc}"
+									styleClass="caja_large_capitals" id="rfcMoral"
+									requiredMessage="El campo rfc es requerido" required="true"
+									mask="aaa 99 99 99 **9">
+								</ace:maskedEntry>
+								<ice:message for="rfcMoral" errorClass="errors" />
+
+								<ice:outputLabel value="* RazónSocial"
+									styleClass="section_title" />
+								<ice:inputText value="#{pbRegistro.currentBeneficiario.nombre}"
+									styleClass="caja_large_capitals" id="razon"
+									requiredMessage="El campo razón social es requerido"
+									required="true" />
+								<ice:message for="razon" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_email}"
+									styleClass="section_title" />
+								<ice:inputText value="#{pbRegistro.currentBeneficiario.email}"
+									styleClass="caja_large" id="email"
+									requiredMessage="El campo correo electrónico es requerido"
+									validatorMessage="El campo email es inválido" required="true">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</ice:inputText>
+
+								<ice:message for="email" styleClass="errors" errorClass="errors" />
+
+
+								<ice:outputLabel value="* #{msgs.label_confirm_email}"
+									styleClass="section_title" />
+								<ice:inputText value="#{pbRegistro.confirmacionCorreo}"
+									styleClass="caja_large" id="emailconfirm"
+									requiredMessage="El campo confirmación de correo electrónico es requerido"
+									validatorMessage="El campo confirmacion de email es inválido"
+									required="true">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</ice:inputText>
+								<ice:message for="emailconfirm" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_access_password}"
+									styleClass="section_title" />
+								<ice:inputSecret redisplay="true"
+									value="#{pbRegistro.currentBeneficiario.password}"
+									styleClass="caja_large" id="password"
+									requiredMessage="El campo contraseña es requerido"
+									validatorMessage="El campo contraseña es inválido (longitud min 8)"
+									required="true">
+									<f:validateLength minimum="8" />
+
+								</ice:inputSecret>
+								<ice:message for="password" errorClass="errors" />
+
+								<ice:outputLabel value="* #{msgs.label_access_confirm_password}"
+									styleClass="section_title" />
+								<ice:inputSecret redisplay="true"
+									value="#{pbRegistro.confirmacionPassword}"
+									styleClass="caja_large" id="passwordconfirm"
+									requiredMessage="#{msgs.access_password_empty}"
+									validatorMessage="El campo contraseña es inválido (longitud min 8)"
+									required="true">
+									<f:validateLength minimum="8" />
+								</ice:inputSecret>
+								<ice:message for="passwordconfirm" errorClass="errors" />
+
+
+								<ice:outputLabel value="* #{msgs.label_security_question}"
+									styleClass="section_title" />
+								<ice:selectOneMenu styleClass="input_large"
+									value="#{pbRegistro.currentBeneficiario.preguntaSeguridad}"
+									converter="EntidadConverter">
+									<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+										noSelectionOption="true"></f:selectItem>
+									<f:selectItems
+										value="#{pbRegistro.catalogoItemsMap['preguntaSeguridadType'].activeItems}"
+										var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+								</ice:selectOneMenu>
+								<ice:outputLabel value="" />
+
+								<ice:outputLabel value="* #{msgs.label_security_answer}"
+									styleClass="section_title" />
+								<ice:inputText id="respuestaPregunta"
+									value="#{pbRegistro.currentBeneficiario.respuestaPregunta}"
+									styleClass="caja_large"
+									requiredMessage="El campo respuesta pregunta es requerido"
+									required="true">
+								</ice:inputText>
+								<ice:message for="respuestaPregunta" errorClass="errors" />
+
+							</ice:panelGrid>
+							<br />
+							<ace:panel header="ubicaci&oacute;n">
+								<ice:panelGrid columns="4">
+									<ice:outputLabel value="* Tipo Vialidad:" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidad}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Nombre Vialidad:" />
+									<ice:outputLabel value="Número Exterior 1:" />
+									<ice:outputLabel value="Número Exterior 2:" />
+									<ice:outputLabel value="Número Interior:" />
+
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.calle}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.numeroExterior}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.numeroExterior2}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.numeroInterior}" />
+
+									<ice:outputLabel value="Tipo Asentamiento:" />
+									<ice:outputLabel value="Colonia:" />
+									<ice:outputLabel value="Código Postal:" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.tipoAsentamiento}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['tiposAsentamientoType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.colonia}" />
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.codigoPostal}" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="* Estado:" />
+									<ice:outputLabel value="* Municipio:" />
+									<ice:outputLabel value="Localidad" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.estado}"
+										converter="EntidadConverter" partialSubmit="true">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['estadosType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbRegistro.currentBeneficiario.ubicacion.municipio}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.currentBeneficiario.ubicacion.estado.municipios}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:inputText
+										value="#{pbRegistro.currentBeneficiario.ubicacion.localidad}" />
+									<ice:outputLabel value="" />
+
+								</ice:panelGrid>
+								<ace:panel header="Entre Vialidades">
+									<ice:panelGrid columns="2">
+										<ice:outputLabel value="Tipo Vialidad 1:" />
+										<ice:outputLabel value="Nombre Vialidad 1:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidad1}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbRegistro.currentBeneficiario.ubicacion.vialidad1}" />
+										<ice:outputLabel value="Tipo Vialidad 2:" />
+										<ice:outputLabel value="Nombre Vialidad 2:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidad2}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbRegistro.currentBeneficiario.ubicacion.vialidad2}" />
+										<ice:outputLabel value="Tipo Vialidad Posterior:" />
+										<ice:outputLabel value="Nombre Vialidad Posterior:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbRegistro.currentBeneficiario.ubicacion.tipoVialidadPosterior}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbRegistro.currentBeneficiario.ubicacion.vialidadPosterior}" />
+
+
+									</ice:panelGrid>
+								</ace:panel>
+								<ice:panelGrid columns="1">
+									<ice:outputLabel value="Descripción de la ubicaci&oacute;n" />
+									<ice:inputTextarea
+										value="#{pbRegistro.currentBeneficiario.ubicacion.descripcion}"
+										cols="155" rows="4" />
+
+								</ice:panelGrid>
+							</ace:panel>
+							<ace:panel header="Representante Legal">
+								<ice:panelGrid columns="3" >
+									<ice:outputLabel value="* Nombre "  />
+									<ice:outputLabel value="* Apellido Paterno"  />
+									<ice:outputLabel value="* Apellido Materno"   />
+
+									<ice:inputText value="#{pbRegistro.currentBeneficiario.representanteLegal.nombre}" id="nombreRep" requiredMessage="El campo nombre es requerido" required="true" style="width:230px;"/>
+									<ice:inputText value="#{pbRegistro.currentBeneficiario.representanteLegal.apellidoPaterno}" id="aPaternoRep" requiredMessage="El campo apellido paterno es requerido" required="true" style="width:230px;"/>
+									<ice:inputText value="#{pbRegistro.currentBeneficiario.representanteLegal.apellidoMaterno}" id="aMaternoRep" requiredMessage="El campo apellido materno es requerido" required="true" style="width:230px;" />
+
+
+									<ice:message for="nombreRep" errorClass="errors"/>
+									<ice:message for="aPaternoRep" errorClass="errors" />
+									<ice:message for="aMaternoRep" errorClass="errors"  />
+
+
+									<ice:outputLabel value="* CURP " />
+									<ice:outputLabel value="* Cargo"/>
+									<ice:outputLabel value="" />
+									
+								
+									<ace:maskedEntry value="#{pbRegistro.currentBeneficiario.representanteLegal.curp}" styleClass="caja_large_capitals" id="curpRep" requiredMessage="El campo curp es requerido" required="true" mask="aaaa 99 99 99 aaaaaa 99"  style="width:230px;"/>
+									<ice:inputText value="#{pbRegistro.currentBeneficiario.representanteLegal.cargo}" id="cargoRep" requiredMessage="El campo cargo es requerido" required="true" style="width:230px;"/>
+									<ice:outputLabel value="" />
+
+
+									<ice:message for="curpRep" errorClass="errors"/>
+									<ice:message for="cargoRep" errorClass="errors" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="* Correo electrónico" />
+									<ice:outputLabel value="* Teléfono" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText value="#{pbRegistro.currentBeneficiario.representanteLegal.email}" id="emailRep" requiredMessage="El campo email es requerido" required="true" style="width:230px;"/>
+									<ice:inputText value="#{pbRegistro.currentBeneficiario.representanteLegal.telefono}" id="telefonoRep" requiredMessage="El campo telefono es requerido" required="true" style="width:230px;"/>
+									<ice:outputLabel value="" />
+									
+									<ice:message for="emailRep" errorClass="errors"/>
+									<ice:message for="telefonoRep" errorClass="errors" />
+									<ice:outputLabel value="" />
+									
+
+								</ice:panelGrid>
+							</ace:panel>
+							<br />
+							<ice:panelGrid columns="1">
+								<ice:outputLabel value="Términos y condiciones:"  />
+							</ice:panelGrid>
+							
+							<div style="height: 5px;"/>
+								
+							<ice:panelGrid columns="1" >
+								<div class="caja_terminos" align="left" style="width:950px;" >
+								<div style="height: 15px;"/>
+								<div>
+								La utilización de este Portal y de cualquiera de las aplicaciones del mismo constituye el pleno y expreso consentimiento por parte del Usuario para observar y sujetarse a cada uno de los Términos y Condiciones que aquí se contienen, así como a las políticas de privacidad, políticas de seguridad y, en su caso, cualesquiera otros documentos que conformen parte o regulen la participación del Usuario en este Portal.  
+						        <div style="height: 15px;"/>	
+							    <strong>Definiciones</strong>
+							    <div style="height: 5px;"/>
+								Para efectos de las presentes Condiciones de Uso, se entiende por:
+							    <div style="height: 5px;"/>
+								<strong>INADEM.-</strong> Al Instituto Nacional del Emprendedor.<br/>
+								<strong>Portal.-</strong> Aplicación informática, diseñado como acceso único al sitio del INADEM cuyo objetivo es ofrecer al Usuario, de forma fácil e integrada, el acceso a una serie de recursos y Servicios que proporciona el Instituto.<br/>
+								<strong>Servicio.-</strong> Conjunto de herramientas que se ofrecen a través del portal del INADEM para realizar trámites y proporcionar información al Usuario.<br/>
+								<strong>Usuario.-</strong> Cualquier persona física o moral que acceda al Portal de INADEM <a href="http://www.inadem.gob.mx" target="_blank">http://www.inadem.gob.mx</a><br/>
+								<div style="height: 5px;"/>
+								<strong>Obligaciones del Usuario</strong><br/>
+								<div style="height: 5px;"/>
+								Al utilizar este Portal el Usuario se compromete a cumplir con los Términos y Condiciones de uso establecidos en el presente documento, reconoce haber leído, entendido y estar de acuerdo en sujetarse a éstos. 
+								El administrador se reserva el derecho de suspender el servicio a todos aquellos usuarios que no cumplan con lo estipulado en las Condiciones de Uso. 
+								<br/>
+	    						<div style="height: 5px;"/>
+								<strong>Términos y Condiciones Generales</strong>
+							    <div style="height: 5px;"/>
+								La información y los Servicios que ofrece el Portal, hacen referencia exclusivamente, a las Reglas de Operación 2013 del Fondo PYME y demás normatividad relacionada. El INADEM no es responsable por el uso externo que se realice de la misma. 
+							    <div style="height: 5px;"/>
+								La información que se presenta en este sitio tiene carácter estrictamente informativo y su utilización como referencia para tomar decisiones es responsabilidad exclusiva del usuario. El INADEM	no se hace responsable por los juicios de valor o las interpretaciones que los usuarios realicen sobre la exactitud o validez de la información publicada, así como por cualquier perjuicio o reclamo de cualquier otra índole que pudiera ser imputable al uso de la información.
+							    <div style="height: 5px;"/>
+								La información y los servicios que ofrece el Portal hacen referencia y son formulados exclusivamente para la publicación de convocatorias y participación en ellas que se realizan en el marco del mismo.
+								<div style="height: 5px;"/>
+								Por el hecho de hacer uso de la información y de los Servicios, el Usuario expresa su aceptación y está de acuerdo con los Términos y Condiciones del presente documento, así como con las modificaciones que al mismo realice el INADEM; como se menciona en el apartado Cambios a las Condiciones de Uso.
+							    <div style="height: 5px;"/>
+								<strong>Acceso y Uso del Portal</strong>
+	    						<div style="height: 5px;"/>
+								Los Servicios que presta el Portal son gratuitos,  el acceso sólo puede hacerse mediante registro del Usuario. 
+	    						<div style="height: 5px;"/>
+								El mecanismo de seguridad para ingresar al Portal y los servicios que proporciona, es la asignación de manera personalizada de una cuenta de acceso (nombre de usuario y contraseña). El usuario será el único responsable de su contraseña y el uso correcto que se le dé a la misma para los fines especificados. Es importante que el usuario proteja su clave, ya que si otras personas hacen un mal uso del Portal usando la misma contraseña se corre el riesgo de perder acceso al sitio. Los daños y perjuicios que llegue a sufrir el INADEM como consecuencia de la inobservancia por parte del Usuario de sus obligaciones serán responsabilidad de éste último.
+							    <div style="height: 10px;"/>
+								Es compromiso de los usuarios garantizar la veracidad y autenticidad de los datos que ingresen al Portal a través del formulario establecido para ello. 
+								<div style="height: 10px;"/>
+								Los usuarios del portal podrán modificar sus datos de registro a través de las herramientas que el INADEM les proporcione.
+								<div style="height: 10px;"/>
+								Es compromiso de los usuarios de los servicios que proporciona el Portal que la información que se obtenga del sitio se utilice únicamente para los propósitos informativos y de participación en las convocatorias.
+								<div style="height: 5px;"/>
+								Es responsabilidad de los usuarios mantener actualizados los datos personales, los cuales serán utilizados por el Portal durante la operación del mismo.
+							    <div style="height: 5px;"/>
+								Los usuarios se comprometen a acceder a la información contenida en el Portal, exclusivamente mediante los mecanismos que el INADEM diseñe, autorice y promueva.
+							    <div style="height: 5px;"/>
+								El Usuario se obliga a salir del Portal de la forma en que el INADEM lo establece en sus manuales para evitar que un tercero haga uso de los permisos asignados a su cuenta de acceso. 
+							    <div style="height: 10px;"/>
+							    <strong>Datos de Carácter Personal</strong>
+							    <div style="height: 10px;"/>
+							    El Portal solicita información de carácter personal al Usuario para, solicitar un apoyo, presentar una queja o comentario. Esta información, que además cumple con el propósito de diseñar un Portal personalizado, incluye nombre, domicilio, teléfono, dirección de correo electrónico, entre otros. 
+								<div style="height: 5px;"/>
+							    El INADEM se encuentra facultado para revisar y evaluar la veracidad de la información y documentación de los usuarios, que con motivo de las diversas convocatorias integren y custodien.
+							    <div style="height: 5px;"/>
+								La información que se presente por parte de los se tratará en términos de la Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental.<br/>
+								Las direcciones de correo electrónico serán utilizadas para responder a preguntas específicas del Usuario y para la difusión de información relacionada con el INADEM, y sólo serán resguardadas para los propósitos señalados.<br/> 
+								<div style="height: 10px;"/>
+								<strong>Propiedad intelectual</strong>
+								<div style="height: 10px;"/>
+								El logotipo, gráficos o iconos distintivos, los nombres de dominio <a href="http://www.inadem.gob.mx" target="_blank">http://www.inadem.gob.mx</a> , <a href="http://www.sistemaemprendedor.gob.mx" target="_blank">www.sistemaemprendedor.gob.mx</a> , contenidos, diseños, programas de cómputo y, en general, cualquier creación intelectual existente en este Portal, así como el propio Portal en su conjunto son propiedad exclusiva del INADEM y de la Secretaría de Economía.<br/>
+								El Usuario no adquiere ningún derecho de propiedad en relación con la Propiedad Intelectual, por tener carácter de Usuario y en ningún momento dicho uso será considerado como una autorización ni licencia para utilizar los Servicios propios del Portal con fines distintos a aquellos para los cuales fue creado.<br/>
+								Queda absolutamente prohibida la utilización de los contenidos, logotipos y formatos de registro que utiliza el Portal, salvo que el INADEM lo autorice en forma explicita y por escrito.<br/>
+								En caso de hacer uso de cualquier tipo de información contenida en el Portal, de manera impresa, electrónica, a través de un sistema de cómputo o cualquier otro medio, deberá citarse la fuente de información.<br/>
+								<div style="height: 10px;"/>
+								<strong>Seguridad de la información</strong><br/>
+								<div style="height: 10px;"/>
+								El INADEM mantiene procedimientos diseñados para proteger la información confidencial del Usuario y el uso por parte del Usuario de cualquiera de los productos y Servicios proporcionados a través del Portal.<br/>  
+								El Usuario entiende y acepta que, no obstante que el INADEM protege la información transmitida a través del Portal, dada la naturaleza de Internet, El INADEM no garantiza que toda transacción electrónica se encuentre libre de riesgo; por lo que el Usuario libera de manera absoluta y sin limitación alguna al INADEM  de cualquier tipo de responsabilidad, civil, penal, administrativa, así como de los daños y perjuicios o cualquier otra que pudiera ser ocasionados por el mal uso, por terceras personas de la información generada, transmitida, recibida o archivada en el Portal .<br/>
+								<div style="height: 10px;"/>
+								<strong>Responsabilidad limitada</strong>
+								<div style="height: 10px;"/>
+								El INADEM presenta la información con la mayor oportunidad posible, no obstante lo anterior, no asume responsabilidad legal alguna o de cualquier otra índole por la precisión, oportunidad, contenido o uso de la misma que se dé por terceros.<br/>	
+							    <div style="height: 10px;"/>
+								<strong>Responsabilidad por daños y perjuicios</strong>
+								<div style="height: 10px;"/>
+								El Usuario responderá de los daños y perjuicios que el INADEM sufra como consecuencia del incumplimiento de cualquiera de las obligaciones a las que queda sometido el Usuario. <br/>
+							    <div style="height: 10px;"/>
+								<strong>Contingencia</strong><br/>
+								<div style="height: 10px;"/>
+								El Usuario acepta expresamente que el INADEM no será responsable de los daños y perjuicios que sufra si por caso fortuito, fuerza mayor o por cualquier otro acontecimiento o circunstancia inevitable, más allá del control razonable del INADEM, no pudiera hacer uso del Portal o realizar alguna de las operaciones que el mismo ofrece.<br/>
+								<div style="height: 10px;"/>
+								<strong>Usos permitidos</strong><br/>
+								<div style="height: 10px;"/>
+								El uso del Portal es bajo la exclusiva responsabilidad del Usuario, quien en todo caso deberá realizar las operaciones correspondientes de acuerdo con el fin para el cual se creó el Portal; por lo que el Usuario se obliga a utilizarlo de modo que no se atente contra las leyes de los Estados Unidos Mexicanos, las buenas costumbres, la dignidad de las personas y los derechos de terceros.<br/>		
+								<div style="height: 10px;"/>
+								<strong>Exclusión de responsabilidad por el funcionamiento del Portal</strong>
+								<div style="height: 10px;"/>
+								Con el fin de disminuir el riesgo de introducción de virus en el Portal, el INADEM utiliza los programas institucionales de detección y eliminación de virus. No obstante, el INADEM no garantiza la ausencia de virus ni de otros elementos en el Portal introducidos por terceros ajenos al INADEM que puedan producir alteraciones en los sistemas físicos o lógicos de los Usuarios. En consecuencia, el INADEM no será en ningún caso responsable de cualquier daño y perjuicio de toda naturaleza que pudieran derivarse de la presencia de virus u otros elementos que puedan producir alteraciones en los sistemas lógicos, documentos electrónicos o ficheros de los Usuarios.
+								<div style="height: 10px;"/>
+								<strong>Cambios a las Condiciones de Uso </strong>
+								<div style="height: 10px;"/>
+								El INADEM se reserva el derecho de modificar las presentes Condiciones de Uso en cualquier tiempo, mediante simple publicación de las nuevas disposiciones aplicables, siendo el Usuario responsable de revisar las Condiciones de Uso periódicamente. El uso del Portal constituirá la aceptación del Usuario, de las disposiciones aplicables al Portal ya sea que éstas se encuentren en las presentes Condiciones de Uso. El Usuario es responsable de revisar periódicamente dichos cambios.<br/>
+								El Usuario declara haber leído y aceptar íntegramente los presentes Términos y Condiciones vigentes en el momento de acceder al Portal y/o usar los Servicios.<br/>
+								En el caso de que el Usuario no esté de acuerdo con las disposiciones del presente documento deberá abstenerse de utilizar el Portal y/o de realizar operaciones a través del Portal.<br/>
+								</div>
+								</div>
+							</ice:panelGrid>
+						    <div style="height: 10px;"/>
+							<ice:panelGrid columns="1">
+								<ice:selectBooleanCheckbox id="terminos"
+									value="#{pbRegistro.terminos}"
+									requiredMessage="Debe aceptar los términos y condiciones"
+									required="true">
+									<ice:outputLabel value="#{msgs.label_terms}"
+										styleClass="section_message" />
+								</ice:selectBooleanCheckbox>
+							</ice:panelGrid>
+							<ice:panelGrid columns="1">
+								<ice:message for="terminos" errorClass="errors" />
+							</ice:panelGrid>
+							<br />
+							<ice:panelGrid columns="2">
+								<ice:commandButton value="Registrar" styleClass="button"
+									actionListener="#{pbRegistro.btnEnviarAction}" />
+								<ice:commandButton value="Cancelar" styleClass="button"
+									actionListener="#{pbRegistro.btnCancelarAction}"
+									immediate="true" />
+							</ice:panelGrid>
+						</div>
+					</ace:panel>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
+		<div id="footer">
+			<ui:include src="../footer.xhtml"/>
+		</div>
+		
+	</div>
+
+	<h:form id="confirmaRegistroForm">
+		<ice:panelPopup rendered="#{pbRegistro.panelConfirmacionVisible}"
+			draggable="true" modal="true" clientOnly="true" autoCentre="false"
+			positionOnLoadOnly="true">
+			<f:facet name="header">
+				<ice:panelGroup style="width:400px;">
+					<ice:outputText value="Confirmación de registro" />
+				</ice:panelGroup>
+			</f:facet>
+			<f:facet name="body">
+				<ice:panelGroup>
+					<ice:outputText value="Confirmación de registro" />
+					<ice:commandButton value="Confirmar"
+						actionListener="#{pbRegistro.btnAceptarConfirmacionAction}" />
+				</ice:panelGroup>
+			</f:facet>
+		</ice:panelPopup>
+	</h:form>
+	<link type="text/css" rel="stylesheet"
+		href="http://www.encuentra.gob.mx/css/apf.css" />
+	<script type="text/javascript"
+		src="http://www.encuentra.gob.mx/api/gobmxWidgetAPI-min.js"></script>
+	<script type="text/javascript"
+		src="http://www.encuentra.gob.mx/properties/gobmxWidgetAPI-conf.js"></script>
+	<script>
+		_gmx.loadGobMXsearchAPI({
+			container : 'gobmx-searchbox-container-se',
+			client : 'se',
+			newWindow : true
+		});
+	</script>
+	<script type="text/javascript" src="../js/utils/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/utils/general.js"></script>
+	<script type="text/javascript" src="../js/utils/slideMe.js"></script>
+	<script type="text/javascript" src="../js/index.js"></script>
+</h:body>
+<h:outputStylesheet library="org.icefaces.component.skins"
+	name="rime.css" />
+</html>

@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="./xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="../styles/estilo.css" />
+	<ice:outputStyle href="../css/style.css" />
+</h:head>
+<h:body>
+
+	<div class="bodyDiv" id="header">
+		<div class="headerDiv">
+				<ui:include src="../header.xhtml"/>
+   		</div>
+		<div class="menuDiv">
+			<ice:form id="menuForm">
+				<ice:panelGroup rendered="#{inademSessionBean.loggedIn}">
+					<ice:menuBar>
+						<ice:menuItem value="INICIO" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="START" />
+						</ice:menuItem>
+						<ice:menuItem value="CONVOCATORIAS" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CONVOCATORIAS" />
+						</ice:menuItem>
+						<ice:menuItem value="MIS SOLICITUDES" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="SOLICITUD" />
+						</ice:menuItem>
+						<ice:menuItem value="MI CUENTA" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CUENTA" />
+						</ice:menuItem>
+						<ice:menuItem value="SALIR" action="#{pbIndex.menuBarCommand}" rendered="false">
+							<f:param name="menuParam" value="LOGOUT" />
+						</ice:menuItem>
+					</ice:menuBar>
+				</ice:panelGroup>
+			</ice:form>
+		</div>
+		<div class="messagesDiv"></div>		
+		<div id="content-main">
+			<div class="conten">
+			<ice:form id="contentForm">
+				<h1>
+					<ice:outputLabel
+						value="#{pbSolicitud.currentSolicitud.convocatoria.nombre}" />
+				</h1>
+				<div style="width:960px;margin: auto" align="left">
+				<ace:panel header="Solicitud de Apoyo Directo">
+					<ice:panelGrid columns="1">
+						<ice:outputLabel value="1) Registro Federal de Contribuyentes del beneficiario /Org. Intermedio" />
+						<ice:outputText value="#{pbSolicitud.currentSolicitud.rfc}" />
+					</ice:panelGrid>
+					<ace:accordion autoHeight="false">
+						<ace:accordionPane title="I. Datos del beneficiario que firma el proyecto">
+							<ice:panelGrid columns="1">
+								<ice:outputLabel value="2) Denominación o razón social" />
+								<ice:outputText value="#{pbSolicitud.currentSolicitud.razonSocial}" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3">
+								<ice:outputLabel value="Nombre " />
+								<ice:outputLabel value="Apellido Paterno" />
+								<ice:outputLabel value="Apellido Materno" />
+
+								<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.representanteLegal.nombre}" />
+								<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.representanteLegal.apellidoPaterno}" />
+								<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.representanteLegal.apellidoMaterno}" />
+
+								<ice:outputLabel value="CURP " />
+								<ice:outputLabel value="Cargo" />
+								<ice:outputLabel value="" />
+
+								<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.representanteLegal.curp}" />
+								<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.representanteLegal.cargo}" />
+								<ice:outputLabel value="" />
+
+								<ice:outputLabel value="Correo Electronico" />
+								<ice:outputLabel value="Telefono" />
+								<ice:outputLabel value="" />
+
+								<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.representanteLegal.email}" />
+								<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.representanteLegal.telefono}" />
+								<ice:outputLabel value="" />
+
+							</ice:panelGrid>
+							<ace:panel header="3)Dirección">
+								<ice:panelGrid columns="4">
+									<ice:outputLabel value="Tipo Vialidad:" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidad.nombre}" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Nombre Vialidad:" />
+									<ice:outputLabel value="Numero Exterior 1:" />
+									<ice:outputLabel value="Numero Exterior 2:" />
+									<ice:outputLabel value="Numero Interior:" />
+
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.calle}" />
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.numeroExterior}" />
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.numeroExterior2}" />
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.numeroInterior}" />
+
+									<ice:outputLabel value="Tipo Asentamiento:" />
+									<ice:outputLabel value="Colonia:" />
+									<ice:outputLabel value="Codigo Postal:" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.tipoAsentamiento.nombre}" />
+
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.colonia}" />
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.codigoPostal}" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Estado:" />
+									<ice:outputLabel value="Municipio:" />
+									<ice:outputLabel value="Localidad" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.estado.nombre}" />
+
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.municipio.nombre}" />
+
+									<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.localidad}" />
+									<ice:outputLabel value="" />
+
+								</ice:panelGrid>
+								<ace:panel header="Entre Vialidades">
+									<ice:panelGrid columns="2">
+										<ice:outputLabel value="Tipo Vialidad 1:" />
+										<ice:outputLabel value="Nombre Vialidad 1:" />
+										<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidad1.nombre}" />
+										<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.vialidad1}" />
+
+										<ice:outputLabel value="Tipo Vialidad 2:" />
+										<ice:outputLabel value="Nombre Vialidad 2:" />
+										<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidad2.nombre}" />
+										<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.vialidad2}" />
+										<ice:outputLabel value="Tipo Vialidad Posterior:" />
+										<ice:outputLabel value="Nombre Vialidad Posterior:" />
+										<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidadPosterior.nombre}" />
+										<ice:inputText readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.vialidadPosterior}" />
+
+
+									</ice:panelGrid>
+								</ace:panel>
+								<ice:panelGrid columns="1">
+									<ice:outputLabel value="Descripcion de la ubicacion" />
+									<ice:inputTextarea readonly="true" value="#{pbSolicitud.currentSolicitud.ubicacion.descripcion}" cols="100" rows="2" />
+
+								</ice:panelGrid>
+							</ace:panel>
+
+						</ace:accordionPane>
+						
+						<ace:accordionPane title="II. Datos generales del proyeto">
+							<ice:panelGrid columns="1">
+								<ice:outputLabel value="10) Nombre del proyecto (Especifique un nombre que describa con precisión el proyecto)." />
+								<ice:inputTextarea value="#{pbSolicitud.currentSolicitud.nombreProyecto }" cols="100" />
+								
+						
+							</ice:panelGrid>
+						<ace:panel header="13) Resumen ejecutivo del proyecto">
+								<ice:panelGrid columns="1">
+
+									<ice:outputLabel value="Objetivo(s)" cols="100" rows="2" />
+									<ice:inputTextarea value="#{pbSolicitud.currentSolicitud.resumenEjecutivo.objetivo}" cols="80" rows="4" />
+
+									<ice:outputLabel value="Descripción del proyecto" />
+									<ice:inputTextarea value="#{pbSolicitud.currentSolicitud.resumenEjecutivo.descripcion}" cols="80" rows="4" />
+
+								
+								</ice:panelGrid>
+							</ace:panel>
+
+						</ace:accordionPane>
+						
+						<ace:accordionPane title="III. Metas del proyecto">
+							<ice:panelGrid columns="1">
+								<ice:outputLabel value="10) Especificar las metas que generara el proyecto." />
+								<ice:inputTextarea cols="100" />
+								
+						
+							</ice:panelGrid>
+
+						</ace:accordionPane>
+						
+						<ace:accordionPane title="IV. Documentación soporte de acuerdo a convocatoria">
+							<ace:panel header="17) Indique la documentacion de soporte con la que cuenta el proyecto">
+								<ace:dataTable value="#{pbSolicitud.currentSolicitud.documentosSolicitud}" var="documentoSolicitud">
+									<ace:column headerText="Documento">
+										<ice:outputText value="#{documentoSolicitud.documento.nombre}" />
+									</ace:column>
+									<ace:column headerText="Adjuntar">
+										<ice:outputLabel value="#{documentoSolicitud.documento.id}" />
+										<ice:outputLabel value="#{documentoSolicitud.path}" />
+										<ice:inputText partialSubmit="true" value="#{documentoSolicitud.path}" />
+										<ace:fileEntry useOriginalFilename="true" maxFileSize="1000000" useSessionSubdir="false" absolutePath="/INADEM/solicitud" maxFileCount="1" fileEntryListener="#{pbFileUploader.listener}"> 
+											<f:param name="documento" value="#{documentoSolicitud}" />
+										</ace:fileEntry>
+									</ace:column>
+									<ace:column headerText="Ver">
+										<ice:inputText partialSubmit="true" value="#{documentoSolicitud.path}" />
+									</ace:column>
+								</ace:dataTable>
+								<h:commandButton value="Cargar Archivos" /> 
+							</ace:panel>
+						</ace:accordionPane>
+					</ace:accordion>
+				</ace:panel></div>
+				
+				<ice:commandButton value="#{msgs.label_support_request_save}"
+					styleClass="button"
+					actionListener="#{pbSolicitud.btnGuardaSlicitudAction}" />
+			</ice:form>
+		</div>
+			</div>
+		<div id="footer">
+			<h:form id="footerForm">
+			</h:form>
+			<p class="copy">Fondo de Apoyo para la Micro, Pequeña y Mediana
+				Empresa - ALGUNOS DERECHOS RESERVADOS &copy; 2013</p>
+			<div class="location">
+				<a href="index.html" class="logoPyme"><img
+					src="../css/assets/img/fondo_pyme_logotype_mini.jpg" alt="Fondo PyME"
+					width="72" height="66" /></a>
+				<p>
+					Alfonso Reyes No.30, Col. Hipódromo Condesa CP 06140, Del.
+					Cuauhtémoc<br /> México, Distrito Federal,Tel. (55) 5729-9100 | 01(800)
+					08 ECONOMIA [32-666]
+				</p>
+			</div>
+			<p>
+				Este programa es de carácter público, no es patrocinado ni promovido
+				por partido político alguno y sus recursos provienen de los
+				impuestos que pagan todos los contribuyentes.<br />Está prohibido el
+				uso de este programa con fines políticos, electorales, de lucro y
+				otros distintos a los establecidos. Quien haga uso indebido de los
+				recursos de este programa deberá ser denunciado y sancionado de
+				acuerdo con la ley aplicable y ante la autoridad competente.
+			</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/utils/general.js"></script>
+	<script type="text/javascript" src="js/utils/slideMe.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</h:body>
+<h:outputStylesheet library="org.icefaces.component.skins"
+	name="rime.css" />
+</html>

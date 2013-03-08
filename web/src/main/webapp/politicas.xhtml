@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="./xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="./styles/estilo.css" />
+	<ice:outputStyle href="./css/style.css" />
+</h:head>
+<h:body>
+	<div class="bodyDiv" id="header">
+		
+		<div class="headerDiv">
+			<ui:include src="header.xhtml"/>      	
+		</div>
+		<div class="contentDiv">
+			<h:form>
+				<ace:panel  styleClass="cuadro_libre" header="Políticas de privacidad" style="width: 950px; margin:auto"> 
+					<div style="width: 900px;" align="left">
+					
+					<div style="align:center;" class="section_header_2">
+					POLÍTICA DE PRIVACIDAD Y MANEJO DE DATOS PERSONALES
+					</div>
+					<div style="height: 20px;"></div>
+					<div>Bienvenido al portal del Instituto Nacional del Emprendedor (INADEM), en cumplimiento con lo establecido por la <a href="#">Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental</a> le solicitamos leer esta política de privacidad y manejo de datos personales:</div>
+					<div style="height: 20px;"></div>
+					
+                    <div class="text_label">
+					
+                    <ul>
+                    <li style="padding-bottom: 5px;">
+                    La presente política de privacidad se limita únicamente al sitio web del INADEM y toda la información publicada bajo el nombre o dominio <a href="http://www.inadem.gob.mx" target="_blank">http://www.inadem.gob.mx</a>
+                    </li>
+                    <li style="padding-bottom: 5px;">
+                    Los datos personales que le solicitamos en los formularios de contacto o cualquier otro tipo de formulario colocado dentro de nuestro sitio web serán utilizados para poder establecer contacto con usted en relación a su petición o comentario y no serán difundidos, distribuidos o comercializados.
+                    </li>
+                    <li style="padding-bottom: 5px;">
+                    La información solicitada a través de nuestro sitio web puede ser incluida dentro de los informes estadísticos que se elaboran para el seguimiento de avances institucionales del Gobierno Federal, los cuales serán meramente estadísticos y no incluirán información que permita identificarle en lo individual; dicha información podrá ser proporcionada a terceros de acuerdo con lo estrictamente señalado en el art. 22 de la Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental.
+                    </li>
+                    <li style="padding-bottom: 5px;">
+                    Nos reservamos el derecho de realizar cualquier cambio y/o corrección a este aviso de privacidad, sin que ello requiera aviso o requisito alguno.
+                    </li>
+                    <li style="padding-bottom: 5px;">
+                    Si desea que el registro generado a través de nuestro portal sea excluido de nuestra base de datos, puede solicitar en cualquier la baja mediante correo electrónico a CORREO_ELECTRONICO.
+                    </li>
+                    <li style="padding-bottom: 5px;">
+                    Si necesita mayor información por favor diríjase a través del correo electrónico  CORREO_ELECTRONICO
+                    </li>
+                    </ul>
+ 					</div>
+ 					<div style="height: 20px;"></div>
+ 					<div>
+ 					Fecha de publicación:<br/>
+					Fecha de última actualización:
+ 					</div>			
+					
+					</div>
+					<div style="height: 20px;"></div>
+					<ice:panelGrid columns="1">
+						<ice:commandButton id="btnVerDocumentoAsociado" title="Politicas de privacidad"
+								actionListener="#{pbUtilities.descargarDocumento}"
+								image="./img/icon/doc.png" styleClass="imgDowload">
+								<f:attribute name="archivo" value="politicas.docx"  />
+							</ice:commandButton>
+					
+					</ice:panelGrid>
+					<div align="right">
+					<ice:panelGrid columns="1">
+							<ice:commandButton value="Regresar"
+								styleClass="button" actionListener="#{pbIndex.btnCancelarAction}" />
+					</ice:panelGrid></div>
+				</ace:panel>
+			</h:form>
+		</div>
+		<div id="footer">
+			<ui:include src="footer.xhtml"/>
+		</div>
+		
+	</div>
+	 <link type="text/css" rel="stylesheet" href="http://www.encuentra.gob.mx/css/apf.css"/>
+    <script type="text/javascript" src="http://www.encuentra.gob.mx/api/gobmxWidgetAPI-min.js"></script>
+    <script type="text/javascript" src="http://www.encuentra.gob.mx/properties/gobmxWidgetAPI-conf.js"></script>
+    <script>
+      _gmx.loadGobMXsearchAPI({container:'gobmx-searchbox-container-se',client:'se',newWindow:true});
+      
+    </script>
+    <script type="text/javascript" src="js/utils/jquery.min.js"></script>
+    <script type="text/javascript" src="js/utils/general.js"></script>
+    <script type="text/javascript" src="js/utils/slideMe.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</h:body>
+</html>
+

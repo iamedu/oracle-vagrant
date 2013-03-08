@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="../xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="../styles/estilo.css" />
+	<ice:outputStyle href="../css/style.css" />
+</h:head>
+<h:body>
+
+	<div class="bodyDiv">
+		<div class="headerDiv">
+			<ui:include src="../header.xhtml"/>
+       </div>
+		<div class="menuDiv">
+			<ice:form id="menuForm">
+				<ice:panelGroup rendered="#{inademSessionBean.loggedIn}">
+					<ice:menuBar>
+						<ice:menuItem value="INICIO" action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="START" />
+						</ice:menuItem>
+						<ice:menuItem value="CONVOCATORIAS"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CONVOCATORIAS" />
+						</ice:menuItem>
+						<ice:menuItem value="MIS SOLICITUDES"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="SOLICITUD" />
+						</ice:menuItem>
+						<ice:menuItem value="MI CUENTA" action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CUENTA" />
+						</ice:menuItem>
+						<ice:menuItem value="SALIR" action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="LOGOUT" />
+						</ice:menuItem>
+					</ice:menuBar>
+				</ice:panelGroup>
+			</ice:form>
+		</div>
+		<div class="messagesDiv"></div>
+		<div class="contentDiv">
+			<ice:form id="contentForm">
+				<ice:panelGroup rendered="#{inademSessionBean.loggedIn}">
+					<ace:panel header="Mis Solicitudes">
+						<style type="text/css">
+/* Important required because row */
+.ui-datatable-odd {
+	background-color: lightgray !important;
+}
+</style>
+						<ace:dataTable
+							value="#{inademSessionBean.beneficiario.solicitudes}"
+							var="solicitud">
+							<ace:column headerText="ID">
+								<h:outputText value="#{solicitud.id}" />
+							</ace:column>
+							<ace:column headerText="Convocatoria">
+								<h:outputText value="#{solicitud.convocatoria.nombre}" />
+							</ace:column>
+							<ace:column id="url" headerText="">
+
+
+								<ice:commandButton id="btnAbrirSolicitud"
+									actionListener="#{pbListaSolicitudes.btnAbrirSolicitudAction}"
+									styleClass="button" value="Abrir">
+									<f:attribute name="solicitud" value="#{solicitud}" />
+								</ice:commandButton>
+
+							</ace:column>
+
+						</ace:dataTable>
+					</ace:panel>
+				</ice:panelGroup>
+			</ice:form>
+		</div>
+		<div class="footerDiv">
+			<ice:form id="footerForm">
+			</ice:form>
+		</div>
+	</div>
+</h:body>
+<h:outputStylesheet library="org.icefaces.component.skins"
+	name="rime.css" />
+</html>

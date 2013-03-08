@@ -1,0 +1,472 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:icecore="http://www.icefaces.org/icefaces/core"
+        xmlns:ace="http://www.icefaces.org/icefaces/components"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+    >
+   <h:head>
+        <title>INADEM</title>
+        <ice:outputStyle href="./xmlhttp/css/rime/rime.css" />
+        <ice:outputStyle href="../styles/estilo.css"/> 
+        <ice:outputStyle href="../css/style.css" />
+    </h:head>
+    <h:body>
+       <h:form id="iceForm">
+            <div class="headerDiv">
+				<ui:include src="../header.xhtml"/>
+       		</div>
+       		<div id="dContenido">
+       			
+       			<ace:panel header="Solicitud de Apoyo">
+       				
+       				<table border="0" align="center" width="100%" cellpadding="0" cellspacing="0">
+       					<tr><td align="center"><ice:outputLabel value="#{msgs.label_support_request_title1} " /></td></tr>
+       					<tr><td align="center"><ice:outputLabel value="#{msgs.label_support_request_title2}" /></td></tr>
+       					<tr height="20px" />
+       					<tr><td align="center"><ice:outputLabel value="#{msgs.label_support_request_title3}" /></td></tr>
+       					<tr height="20px" />
+       					<tr>
+       						<td>
+			       				<table border="1" align="right" width="40%" cellpadding="0" cellspacing="0">
+			       					<thead >
+			       						<tr >
+				       						<td align="center" colspan="2" >
+				       							<ice:outputLabel value="#{msgs.label_support_request_table1_header}"/>
+				       						</td>
+			       						</tr>
+			       					</thead>
+			       					<tbody>
+			       						<tr>
+				       						<td  width="40%"><ice:outputLabel value="#{msgs.label_support_request_table1_beneficiary}"/></td>
+				       						<td />
+				       					</tr>
+			       						<tr>
+				       						<td><ice:outputLabel value="#{msgs.label_support_request_table1_date_registered}"/></td>
+				       						<td />
+				       					</tr>
+				       					<tr>
+				       						<td><ice:outputLabel value="#{msgs.label_support_request_table1_call}"/></td>
+				       						<td />
+				       					</tr>
+				       					<tr>
+				       						<td><ice:outputLabel value="#{msgs.label_support_request_table1_project}"/></td>
+				       						<td />
+				       					</tr>
+			       					</tbody>
+			       				</table>
+			       			</td>
+       					</tr>
+       					<tr height="20px" />
+       					<tr><td align="left"><ice:outputLabel value="#{msgs.label_support_request_message1}" /></td></tr>
+       					<tr>
+       						<td>
+       							<table align="left" width="53%" border="1"  cellpadding="0" cellspacing="0">
+       						
+       								<tr><td colspan="12"><ice:outputLabel value="#{msgs.label_support_request_table2_beneficiary_rfc}" /></td></tr>
+       							</table>
+       						</td>
+       					</tr>
+       					<tr height="20px" />
+       					<tr>
+       						<td>
+       							<table align="center" width="100%" border="1"  cellpadding="0" cellspacing="0">
+       								<thead>
+       									<tr><td colspan="12" align="center"><ice:outputLabel value="#{msgs.label_support_request_table3_title}" /></td></tr>
+       								</thead>	
+       								<tbody>
+       									<tr>
+       										<td colspan="2" width="25%"><ice:outputLabel value="#{msgs.label_support_request_table3_corporate_name}" /></td>
+       										<td colspan="6" width="75%">
+       											<ice:inputText id="corporateName" value="#{pbSolicitudApoyo.currentSolicitud.razonSocial }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="corporateName" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table3_address}" /></td>
+       									</tr>
+       									<tr>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_type_road}" /></td>
+       										<td colspan="2" width="25%" >&#160;</td>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" /></td>
+       										<td colspan="4" width="50%">
+       											<ice:inputText id="roadName" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.calle }" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="roadName" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_outside_number1}" /></td>
+       										<td width="25%" colspan="2" >
+       											<ice:inputText id="outSideNumber1" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.numeroExterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="outSideNumber1" styleClass="errors"/>
+       										</td>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_outside_number2}" /></td>
+       										<td width="12%">
+       											<ice:inputText id="outSideNumber2" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.numeroExterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="outSideNumber2" styleClass="errors"/>
+       										</td>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_internal_number}" /></td>
+       										<td width="25%" colspan="25%">
+       											<ice:inputText id="internalNumber" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.numeroInterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="internalNumber" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="2" width="25%"><ice:outputLabel value="#{msgs.label_support_request_table3_human_settlement}" /></td>
+       										<td colspan="2" width="25%">&#160;</td>
+       										<td colspan="2" width="25%"><ice:outputLabel value="#{msgs.label_support_request_table3_name_human_settlement}" /></td>
+       										<td width="25%">
+       											<ice:inputText id="humanSettlement" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.colonia}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="humanSettlement" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_zipcode}" /></td>
+       										<td width="12%">
+       											<ice:inputText id="zipCode" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.codigoPostal}" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="zipCode" styleClass="errors"/>
+       										</td>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_state}" /></td>
+       										<td width="12%">
+       											<ice:inputText id="states" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="states" styleClass="errors"/>
+       										</td>
+       										
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_delegation}" /></td>
+       										<td width="12%">
+       											<ice:inputText id="delegation" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="delegation" styleClass="errors"/>
+       										</td>
+       										
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_locality}" /></td>
+       										<td width="12%">
+       											<ice:inputText id="locality" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="locality" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table3_between_roads}" /></td>
+       									</tr>
+       									<tr>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_road_type1}" /></td>
+       										<td colspan="2" width="25%" >&#160;</td>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" /></td>
+       										<td colspan="4" width="50%">
+       											<ice:inputText id="betweenRoadName1" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.vialidad1}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="betweenRoadName1" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_road_type2}" /></td>
+       										<td colspan="2" width="25%" >&#160;</td>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" /></td>
+       										<td colspan="4" width="50%">
+       											<ice:inputText id="betweenRoadName2" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.vialidad2}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="betweenRoadName2" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table3_back_roads}" /></td>
+       									</tr>
+       									<tr>
+       										<td width="12%"><ice:outputLabel value="#{msgs.label_support_request_table3_road_type}" /></td>
+       										<td colspan="2" width="25%" >&#160;</td>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" /></td>
+       										<td colspan="4" width="50%">
+       											<ice:inputText id="backRoadName1" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.vialidadPosterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="backRoadName1" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table3_location_description}" /></td>
+       									</tr>
+       									<tr>
+       										<td colspan="8" align="center">
+       											<ice:inputTextarea id="description" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.descripcion}" cols="100" rows="2"/>
+       											<ice:message for="description" styleClass="errors"/>
+       										</td>
+       									</tr>
+       								</tbody>
+       							</table>
+       						</td>
+       					</tr>
+       					<tr height="10px" />
+       					<tr>
+       						<td>
+       							<table align="center" width="100%" border="1"  cellpadding="0" cellspacing="0">
+       								<thead>
+       									<tr><td colspan="8" align="center"><ice:outputLabel value="#{msgs.label_support_request_table4_title}" /></td></tr>
+       								</thead>	
+       								<tbody>
+       									<tr>
+       										<td width="10%"><ice:outputLabel value="#{msgs.label_support_request_table4_name}" /></td>
+       										<td width="40%" colspan="2">
+       											<ice:inputText id="legalName" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.nombre }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="legalName" styleClass="errors"/>
+       										</td>
+       										<td width="10%"><ice:outputLabel value="#{msgs.label_support_request_table4_charge}" /></td>
+       										<td width="40%" colspan="2">
+       											<ice:inputText id="legalCharge" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.cargo }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="legalCharge" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td width="10%"><ice:outputLabel value="#{msgs.label_support_request_table4_phone}" /></td>
+       										<td width="40%" colspan="2">
+       											<ice:inputText id="legalPhone" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.nombre }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="legalPhone" styleClass="errors"/>
+       										</td>
+       										<td width="10%"><ice:outputLabel value="#{msgs.label_support_request_table4_curp}" /></td>
+       										<td width="40%" colspan="2">
+       											<ice:inputText id="legalCurp" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.cargo }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="legalCurp" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="2" width="20%"><ice:outputLabel value="#{msgs.label_support_request_table4_email}" /></td>
+       										<td colspan="6" width="80%">
+       											<ice:inputText id="legalEmail" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.telefono }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="legalEmail" styleClass="errors"/>
+       										</td>
+       									</tr>
+										<tr><td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table4_footer}" /></td></tr>       									
+       								</tbody>
+       							</table>
+       						</td>
+       					</tr>
+       					<tr height="10px" />
+       					<tr>
+       						<td>	
+       							<table align="center" width="100%" border="1"  cellpadding="0" cellspacing="0">
+       								<thead>
+       									<tr><td colspan="8" align="center"><ice:outputLabel value="#{msgs.label_support_request_table5_title}" /></td></tr>
+       								</thead>	
+       								<tbody>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table5_name}" /></td>
+       									</tr>
+       									<tr>
+       										<td colspan="8" align="center" >
+       											<ice:inputTextarea id="projectName" value="#{pbSolicitudApoyo.currentSolicitud.nombreProyecto }" cstyleClass="input_large" requiredMessage="#{msgs.label_support_request_required}" required="true" cols="100" />
+       											<ice:message for="projectName" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table5_geographical_coverage}" /></td>
+       									</tr>
+       									<tr>
+       										<td  width="15%" rowspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_national}" /></td>
+       										<td  width="10%" rowspan="2">
+       											<ice:inputText id="coverageNational" value="" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="coverageNational" styleClass="errors"/>
+       										</td>
+       										<td  width="15%" colspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_regional}" /></td>
+       										<td  width="15%" rowspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_state}" /></td>
+       										<td  width="10%" rowspan="2">
+       											<ice:inputText id="coverageState" value="" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="coverageState" styleClass="errors"/>
+       										</td>
+       										<td  width="15%" rowspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_others}" /></td>
+       										<td  width="10%" rowspan="2">
+       											<ice:inputText id="coverageOthers" value="" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="coverageOthers" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td  width="15%"><ice:outputLabel value="#{msgs.label_support_request_table5_specify_states}"/></td>
+       										<td  width="10%">
+       											<ice:inputText id="specifyStates" value="" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="true" />
+       											<ice:message for="specifyStates" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="7"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion}" /></td>
+       										<td  width="15%"></td>
+       									</tr>
+       									<tr>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_street}" /></td>
+       										<td width="85%" colspan="7">
+       											<ice:inputText id="streetPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.numeroExterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="streetPromotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td width="25%" colspan="2" ><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_noOutside}" /></td>
+       										<td width="25%" colspan="2" >
+       											<ice:inputText id="outSideNumber1Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.numeroExterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="outSideNumber1Promotion" styleClass="errors"/>
+       										</td>
+       										<td width="25%" colspan="2" ><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_noInternal}" /></td>
+       										<td width="25%" colspan="2">
+       											<ice:inputText id="internalNumberPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.numeroInterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="internalNumberPromotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td width="25%" colspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_colony}" /></td>
+       										<td width="25%" colspan="2">
+       											<ice:inputText id="colonyPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.colonia}" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="colonyPromotion" styleClass="errors"/>
+       										</td>
+       										<td width="25%" colspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_cp}" /></td>
+       										<td width="25%" colspan="2">
+       											<ice:inputText id="zipCodePromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.codigoPostal}" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="zipCodePromotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td width="20%"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_state}" /></td>
+       										<td width="15%" >
+       											<ice:inputText id="statesPromotion" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="statesPromotion" styleClass="errors"/>
+       										</td>
+       										
+       										<td width="20%"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_delegation}" /></td>
+       										<td width="15%" colspan="2">
+       											<ice:inputText id="delegationPromotion" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="delegationPromotion" styleClass="errors"/>
+       										</td>
+       										<td width="20%"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_locality}" /></td>
+       										<td width="10%" colspan="2">
+       											<ice:inputText id="localityPromotion" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="localityPromotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_between_roads}" /></td>
+       									</tr>
+       									<tr>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_between_road1}" /></td>
+       										<td width="85%" colspan="7">
+       											<ice:inputText id="roads1Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidad1}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="roads1Promotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_between_road2}" /></td>
+       										<td width="85%" colspan="7">
+       											<ice:inputText id="roads2Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidad2}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="roads2Promotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td ><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_between_backRoad}" /></td>
+       										<td width="85%" colspan="7">
+       											<ice:inputText id="backRoadsPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidadPosterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+       											<ice:message for="backRoadsPromotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table5_promotion_description}" /></td>
+       									</tr>
+       									<tr>
+       										<td colspan="8" align="center">
+       											<ice:inputTextarea id="descriptionPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.descripcion}" cols="100" rows="2"/>
+       											<ice:message for="descriptionPromotion" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="8"><ice:outputLabel value="#{msgs.label_support_request_table5_project_summary}" /></td>
+       									</tr>
+       									<tr>
+       										<td colspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_project_objective}" /></td>
+       										<td colspan="6" align="left">
+       											<ice:inputText id="objetivesProject" value="#{pbSolicitudApoyo.currentSolicitud.resumenEjecutivo.objetivo}"/>
+       											<ice:message for="objetivesProject" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_project_description}" /></td>
+       										<td colspan="6" align="left">
+       											<ice:inputTextarea id="descriptionProject" value="#{pbSolicitudApoyo.currentSolicitud.resumenEjecutivo.descripcion}" cols="100" rows="2"/>
+       											<ice:message for="descriptionProject" styleClass="errors"/>
+       										</td>
+       									</tr>
+       									<tr>
+       										<td colspan="2"><ice:outputLabel value="#{msgs.label_support_request_table5_project_months}" /></td>
+       										<td colspan="6" align="left">
+       											<ice:inputTextarea id="monthsProject" value="#{pbSolicitudApoyo.currentSolicitud.resumenEjecutivo.mesesDuracion}" cols="100" rows="2" />
+       											<ice:message for="monthsProject" styleClass="errors"/>
+       										</td>
+       									</tr>
+       								</tbody>
+       							</table>
+       						</td>
+       					</tr>
+       					<tr height="10px" />
+       					<tr>
+       						<td>
+							    <table align="center" width="100%" border="1"  cellpadding="10px" cellspacing="0">
+									<thead>
+										<tr><td  align="center"><ice:outputLabel value="#{msgs.label_support_request_table6_title}" /></td></tr>
+										<tr><td  align="left"><ice:outputLabel value="#{msgs.label_support_request_table6_goals_project}" /></td></tr>
+									</thead>	
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" width="100%" border="1"  cellpadding="0" cellspacing="0">
+													<thead>
+														<tr>
+															<td align="left" width="40%"><ice:outputLabel value="#{msgs.label_support_request_table6_company}" /></td>
+															<td align="left" width="20%">&#160;</td>
+															<td align="left" width="40%" ><ice:outputLabel value="#{msgs.label_support_request_table6_company_new}" /></td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td width="85%" colspan="7">
+				       											<ice:inputText id="roads2Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidad2}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+				       											<ice:message for="roads2Promotion" styleClass="errors"/>
+				       										</td>
+				       										<td align="left" width="20%">&#160;</td>
+															<td width="85%" colspan="7">
+				       											<ice:inputText id="roads2Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidad2}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+				       											<ice:message for="roads2Promotion" styleClass="errors"/>
+				       										</td>
+														</tr>
+													</tbody>
+												</table>
+												<br />
+												<table align="center" width="100%" border="1"  cellpadding="0" cellspacing="0">
+													<thead>
+														<tr>
+															<td align="left" width="40%"><ice:outputLabel value="#{msgs.label_support_request_table6_jobs}" /></td>
+															<td align="left" width="20%">&#160;</td>
+															<td align="left" width="40%"><ice:outputLabel value="#{msgs.label_support_request_table6_jobs_new}" /></td>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+												<br />
+												<table align="left" width="50%" border="1"  cellpadding="0" cellspacing="0">
+													<thead>
+														<tr><td align="left"><ice:outputLabel value="#{msgs.label_support_request_table6_enterprising}" /></td></tr>
+													</thead>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+       						</td>
+       					</tr>
+       				</table>
+       					
+       				<!-- <ice:panelGrid columns="3" >
+       					<ice:commandButton value="Enviar" actionListener="#{pbRegistro.btnEnviarAction}"/>
+       				</ice:panelGrid>-->
+       			</ace:panel>
+       		  
+       		</div>
+       		
+		
+
+
+	</h:form>
+	
+	
+    </h:body>
+</html>

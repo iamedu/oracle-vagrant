@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="../xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="../styles/estilo.css" />
+</h:head>
+<h:body>
+
+	<div class="bodyDiv">
+		<div class="headerDiv"></div>
+		<div class="menuDiv">
+		<ice:form id="menuForm">
+		<ice:panelGroup rendered="#{inademSessionBean.loggedIn}">
+						<ice:menuBar>
+							<ice:menuItem value="INICIO"
+								action="#{pbIndex.menuBarCommand}">
+								<f:param name="menuParam" value="START" />
+							</ice:menuItem>
+						    <ice:menuItem value="CONVOCATORIAS"
+								action="#{pbIndex.menuBarCommand}">
+								<f:param name="menuParam" value="CONVOCATORIAS" />
+							</ice:menuItem>
+							<ice:menuItem value="MIS SOLICITUDES"
+								action="#{pbIndex.menuBarCommand}">
+								<f:param name="menuParam" value="SOLICITUD" />
+							</ice:menuItem>
+							<ice:menuItem value="MI CUENTA"
+								action="#{pbIndex.menuBarCommand}">
+								<f:param name="menuParam" value="CUENTA" />
+							</ice:menuItem>
+							<ice:menuItem value="SALIR"
+								action="#{pbIndex.menuBarCommand}">
+								<f:param name="menuParam" value="LOGOUT" />
+							</ice:menuItem>
+						</ice:menuBar>
+			</ice:panelGroup>
+			</ice:form>
+		</div>
+		<div class="messagesDiv">
+			
+		</div>
+		<div class="contentDiv">
+			<ice:form id="contentForm">
+			<ice:outputLabel value="#{pbSolicitudApoyo.currentSolicitud.convocatoria.nombre}"/>
+				<ace:panel header="#{msgs.label_support_request_title3}">
+					<ice:panelGrid columns="1">
+							<ice:outputLabel value="#{msgs.label_support_request_table2_beneficiary_rfc}" />
+							<ice:inputText id="rfc" value="#{pbSolicitudApoyo.currentSolicitud.rfc}" styleClass="input_large" requiredMessage="#{msgs.label_support_request_required}" required="false" />
+							<ice:message for="rfc" styleClass="errors"/>
+       				</ice:panelGrid>
+       				<ace:accordion collapsible="true" autoHeight="false">
+       					<ace:accordionPane title="#{msgs.label_support_request_table3_title}">
+       						<ice:panelGrid columns="3">
+       						
+       							<ice:outputLabel value="#{msgs.label_support_request_table3_corporate_name}" />
+								<ice:inputText id="corporateName" value="#{pbSolicitudApoyo.currentSolicitud.razonSocial }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="false" />
+								<ice:message for="corporateName" styleClass="errors"/>
+       										
+       						</ice:panelGrid>
+       						<ace:panel header="#{msgs.label_support_request_table3_address}">
+       							<ice:panelGrid columns="1">
+       								    
+										<ice:outputLabel value="#{msgs.label_support_request_table3_type_road}" />
+     									<ice:selectOneMenu styleClass="input_large"
+											value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.tipoVialidad}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbSolicitudApoyo.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+     									
+     									<ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" />
+		     							<ice:inputText id="roadName" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.calle }" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="roadName" styleClass="errors"/>
+     									
+										<ice:outputLabel value="#{msgs.label_support_request_table3_outside_number1}" />
+     									<ice:inputText id="outSideNumber1" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.numeroExterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="outSideNumber1" styleClass="errors"/>
+     										
+										<ice:outputLabel value="#{msgs.label_support_request_table3_outside_number2}" />
+     									<ice:inputText id="outSideNumber2" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.numeroExterior2}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="outSideNumber2" styleClass="errors"/>
+     										
+										<ice:outputLabel value="#{msgs.label_support_request_table3_internal_number}" />
+     									<ice:inputText id="internalNumber" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.numeroInterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="internalNumber" styleClass="errors"/>
+     										
+										<ice:outputLabel value="#{msgs.label_support_request_table3_human_settlement}" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.tipoAsentamiento}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+											<f:selectItems value="#{pbSolicitudApoyo.catalogoItemsMap['tiposAsentamientoType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										
+										<ice:outputLabel value="#{msgs.label_support_request_table3_name_human_settlement}" />
+     									<ice:inputText id="humanSettlement" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.colonia}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="humanSettlement" styleClass="errors"/>
+     									
+										<ice:outputLabel value="#{msgs.label_support_request_table3_zipcode}" />
+     									<ice:inputText id="zipCode" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.codigoPostal}" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="zipCode" styleClass="errors"/>
+     										
+										<ice:outputLabel value="#{msgs.label_support_request_table3_state}" />
+     									<ice:selectOneMenu styleClass="input_large"
+											value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.estado}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+											
+											<f:selectItems value="#{pbSolicitudApoyo.catalogoItemsMap['estadosType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:message for="states" styleClass="errors"/>
+     										
+     									<ice:outputLabel value="#{msgs.label_support_request_table3_delegation}" />
+     									<ice:selectOneMenu styleClass="input_large"
+											value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.municipio}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+											
+											<f:selectItems value="#{pbSolicitudApoyo.catalogoItemsMap['municipiosType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:message for="delegation" styleClass="errors"/>
+     										
+     									<ice:outputLabel value="#{msgs.label_support_request_table3_locality}" />
+     									<ice:inputText id="locality" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="locality" styleClass="errors"/>
+     									
+     									<ace:panel header="#{msgs.label_support_request_table3_between_roads}">
+       										<ice:panelGrid columns="1">
+       							
+												<ice:outputLabel value="#{msgs.label_support_request_table3_road_type1}" />
+		     									<ice:selectOneMenu styleClass="input_large"
+														value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.tipoVialidad1}"
+														converter="EntidadConverter" >
+														<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true"  />
+														
+														<f:selectItems value="#{pbSolicitudApoyo.catalogoItemsMap['tiposVialidadType'].activeItems}"
+															var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+												</ice:selectOneMenu>
+												
+												<ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" />
+		     									<ice:inputText id="betweenRoadName1" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.vialidad1}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+		 										<ice:message for="betweenRoadName1" styleClass="errors"/>
+												
+												<ice:outputLabel value="#{msgs.label_support_request_table3_road_type2}" />
+												<ice:selectOneMenu styleClass="input_large"
+														value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.tipoVialidad2}"
+														converter="EntidadConverter" >
+														<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+															noSelectionOption="true" ></f:selectItem>
+														<f:selectItems
+														value="#{pbSolicitudApoyo.catalogoItemsMap['tiposVialidadType'].activeItems}"
+														var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+												</ice:selectOneMenu>
+     											
+     											<ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" />
+												<ice:inputText id="betweenRoadName2" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.vialidad2}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+												<ice:message for="betweenRoadName2" styleClass="errors"/>
+     									
+     										</ice:panelGrid>
+     									</ace:panel>
+     							
+     									<ace:panel header="#{msgs.label_support_request_table3_back_roads}">
+       										<ice:panelGrid columns="1">
+       										
+												<ice:outputLabel value="#{msgs.label_support_request_table3_road_type}" />
+												<ice:selectOneMenu styleClass="input_large"
+													value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.tipoVialidadPosterior}"
+													converter="EntidadConverter" >
+													<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+													
+													<f:selectItems value="#{pbSolicitudApoyo.catalogoItemsMap['tiposVialidadType'].activeItems}"
+														var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+												</ice:selectOneMenu>
+												
+												
+												<ice:outputLabel value="#{msgs.label_support_request_table3_road_name}" />
+												<ice:inputText id="backRoadName1" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.vialidadPosterior}" styleClass="caja" requiredMessage="El campo es requerido" required="true" />
+												<ice:message for="backRoadName1" styleClass="errors"/>
+												
+     										</ice:panelGrid>
+     									</ace:panel>
+									
+										<ice:outputLabel value="#{msgs.label_support_request_table3_location_description}" />
+	       								<ice:inputTextarea id="description" value="#{pbSolicitudApoyo.currentSolicitud.ubicacion.descripcion}" cols="100" rows="2"/>
+	       								<ice:message for="description" styleClass="errors"/>
+	       								
+       							</ice:panelGrid>
+       						</ace:panel>
+       						
+       					</ace:accordionPane>
+       					<ace:accordionPane title="#{msgs.label_support_request_table4_title}">
+       						<ice:panelGrid columns="3">
+       						
+								<ice:outputLabel value="#{msgs.label_support_request_table4_name}" />
+       							<ice:inputText id="legalName" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.nombre }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="false" />
+     							<ice:message for="legalName" styleClass="errors"/>
+       							
+	       						<ice:outputLabel value="#{msgs.label_support_request_table4_charge}" />
+     							<ice:inputText id="legalCharge" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.cargo }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="false" />
+       							<ice:message for="legalCharge" styleClass="errors"/>
+       						
+       							<ice:outputLabel value="#{msgs.label_support_request_table4_phone}" />
+    							<ice:inputText id="legalPhone" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.telefono }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="false" />
+       							<ice:message for="legalPhone" styleClass="errors"/>
+       							
+       							<ice:outputLabel value="#{msgs.label_support_request_table4_curp}" />
+       							<ice:inputText id="legalCurp" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.curp }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="false" />
+       							<ice:message for="legalCurp" styleClass="errors"/>
+       							
+       							<ice:outputLabel value="#{msgs.label_support_request_table4_email}" />
+       							<ice:inputText id="legalEmail" value="#{pbSolicitudApoyo.currentSolicitud.representanteLegal.email }" styleClass="caja" requiredMessage="#{msgs.label_support_request_required}" required="false" />
+       							<ice:message for="legalEmail" styleClass="errors"/>
+       							
+	       					</ice:panelGrid>
+       					</ace:accordionPane>
+       					<ace:accordionPane title="#{msgs.label_support_request_table5_title}">
+       						<ice:panelGrid columns="1">
+       							
+       							<ice:outputLabel value="#{msgs.label_support_request_table5_name}" />
+       							<ice:inputTextarea id="projectName" value="#{pbSolicitudApoyo.currentSolicitud.nombreProyecto }" cstyleClass="input_large" requiredMessage="#{msgs.label_support_request_required}" required="false" cols="100" />
+       							<ice:message for="projectName" styleClass="errors"/>
+       							
+       							<ace:panel header="#{msgs.label_support_request_table5_promotion}">
+	       							<ice:panelGrid columns="1">
+	       								 
+	       								<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_street}" />
+										<ice:inputText id="streetPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.calle}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+										<ice:message for="streetPromotion" styleClass="errors"/>
+								
+										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_noOutside}" />
+										<ice:inputText id="outSideNumber1Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.numeroExterior}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+										<ice:message for="outSideNumber1Promotion" styleClass="errors"/>
+									
+										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_noInternal}" />
+										<ice:inputText id="internalNumberPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.numeroInterior}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+										<ice:message for="internalNumberPromotion" styleClass="errors"/>
+									
+										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_colony}" />
+										<ice:inputText id="colonyPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.colonia}" styleClass="input_simple" requiredMessage="El campo es requerido" required="false" />
+										<ice:message for="colonyPromotion" styleClass="errors"/>
+									
+										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_cp}" />
+										<ice:inputText id="zipCodePromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.codigoPostal}" styleClass="input_simple" requiredMessage="El campo es requerido" required="false" />
+										<ice:message for="zipCodePromotion" styleClass="errors"/>
+										
+										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_state}" />
+										<ice:selectOneMenu styleClass="input_large" id="statePromotion"
+											value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.estado}"
+											converter="EntidadConverter" 
+											partialSubmit="true"
+											immediate="true">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+											
+											<f:selectItems value="#{pbSolicitudApoyo.catalogoItemsMap['estadosType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:message for="statePromotion" styleClass="errors"/>
+										
+										<ice:outputLabel value="#{msgs.label_support_request_table3_delegation}" />
+     									<ice:selectOneMenu styleClass="input_large" id="delegationPromotion"
+											value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.municipio}"
+											converter="EntidadConverter"
+											rendered="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.estado != null}" >
+											
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+											
+											<f:selectItems value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.estado.municipios}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:panelGroup rendered="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.estado == null}" />
+										<ice:message for="delegationPromotion" styleClass="errors"/>
+										
+										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_locality}" />
+     									<ice:inputText id="localityPromotion" value="" styleClass="input_simple" requiredMessage="El campo es requerido" required="true" />
+     									<ice:message for="localityPromotion" styleClass="errors"/>
+     									
+										<ace:panel header="#{msgs.label_support_request_table5_promotion_between_roads}">
+											
+											<ice:panelGrid columns="3">
+	   									
+		   										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_between_road1}" />
+		   										<ice:inputText id="roads1Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidad1}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+		   										<ice:message for="roads1Promotion" styleClass="errors"/>
+		   										
+		   										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_between_road2}" />
+		   										<ice:inputText id="roads2Promotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidad2}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+		   										<ice:message for="roads2Promotion" styleClass="errors"/>
+		   											
+												<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_between_backRoad}" />
+		   										<ice:inputText id="backRoadsPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.vialidadPosterior}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+		   										<ice:message for="backRoadsPromotion" styleClass="errors"/>
+		   										
+	   										</ice:panelGrid>
+	   										
+   										</ace:panel>
+										
+										<ice:outputLabel value="#{msgs.label_support_request_table5_promotion_description}" />
+   										<ice:inputTextarea id="descriptionPromotion" value="#{pbSolicitudApoyo.currentSolicitud.ubicacionEventos.descripcion}" cols="100" rows="2"/>
+   										<ice:message for="descriptionPromotion" styleClass="errors"/>
+       									
+	       							</ice:panelGrid>
+	       						</ace:panel>
+	       						
+	       						<ace:panel header="#{msgs.label_support_request_table5_project_summary}">
+	       							<ice:panelGrid columns="1">
+	       								    
+										<ice:outputLabel value="#{msgs.label_support_request_table5_project_objective}" cols="100" rows="2"/>
+       									<ice:inputTextarea id="objetivesProject" value="#{pbSolicitudApoyo.currentSolicitud.resumenEjecutivo.objetivo}" cols="100" rows="2"/>
+       									<ice:message for="objetivesProject" styleClass="errors"/>
+       									
+       									<ice:outputLabel value="#{msgs.label_support_request_table5_project_description}" />
+       									<ice:inputTextarea id="descriptionProject" value="#{pbSolicitudApoyo.currentSolicitud.resumenEjecutivo.descripcion}" cols="100" rows="2"/>
+       									<ice:message for="descriptionProject" styleClass="errors"/>
+       										
+       									<ice:outputLabel value="#{msgs.label_support_request_table5_project_months}" />
+       									<ice:inputText id="monthsProject" value="#{pbSolicitudApoyo.currentSolicitud.resumenEjecutivo.mesesDuracion}"  />
+       									<ice:message for="monthsProject" styleClass="errors"/>
+       									
+	       							</ice:panelGrid>
+	       						</ace:panel>
+       									
+       						</ice:panelGrid>
+       					</ace:accordionPane>
+       					<ace:accordionPane title="#{msgs.label_support_request_table6_title}">
+       						<ace:panel header="#{msgs.label_support_request_table6_goals_project}">
+       							<ice:outputLabel value="#{msgs.label_support_request_table6_company}" />
+       							<ice:inputText id="companyBeneficiada" value="#{pbSolicitudApoyo.currentSolicitud.metaProyecto.empresasBeneficiadas}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+    							<ice:message for="companyBeneficiada" styleClass="errors"/>
+    							
+       							<ice:outputLabel value="#{msgs.label_support_request_table6_company_new}" />
+       							<ice:inputText id="formacionEmpresas" value="#{pbSolicitudApoyo.currentSolicitud.metaProyecto.formacionEmpresas}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+    							<ice:message for="formacionEmpresas" styleClass="errors"/>
+    							
+       							<ice:outputLabel value="#{msgs.label_support_request_table6_jobs}" />
+       							<ice:inputText id="formacionEmpleos" value="#{pbSolicitudApoyo.currentSolicitud.metaProyecto.formacionEmpleos}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+    							<ice:message for="formacionEmpleos" styleClass="errors"/>
+    							
+								<ice:outputLabel value="#{msgs.label_support_request_table6_jobs_new}" />
+								<ice:inputText id="empleosFavorecidos" value="#{pbSolicitudApoyo.currentSolicitud.metaProyecto.empleosFavorecidos}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+    							<ice:message for="empleosFavorecidos" styleClass="errors"/>
+    							
+								<ice:outputLabel value="#{msgs.label_support_request_table6_enterprising}" />
+								<ice:inputText id="emprendedores" value="#{pbSolicitudApoyo.currentSolicitud.metaProyecto.atencionEmprendedores}" styleClass="caja" requiredMessage="El campo es requerido" required="false" />
+    							<ice:message for="emprendedores" styleClass="errors"/>
+    							
+       							
+       						</ace:panel>
+	       						
+       														
+													
+       					</ace:accordionPane>
+       					<ace:accordionPane title="#{msgs.label_support_request_table7_title}">
+       						<ace:panel header="#{msgs.label_support_request_table7_estimate_pesos}">
+       						<ace:dataTable value="#{pbSolicitudApoyo.currentSolicitud.presupuestoParticipantes}" var="presupuestoParticipante">
+       							<ace:column headerText="#{msgs.label_support_request_table7_estimate_pesos_column_instance}">
+       								<ice:outputText value="#{presupuestoParticipante.participante.nombre}" />
+       							</ace:column>
+       							<ace:column headerText="#{msgs.label_support_request_table7_estimate_pesos_column_amount}">
+       								<ice:inputText partialSubmit="true" value="#{presupuestoParticipante.monto}" />
+       							</ace:column>
+       						</ace:dataTable>
+       						<ice:outputLabel value="Total = #{pbSolicitudApoyo.totalPresupuesto}">
+       						 
+       						</ice:outputLabel>
+       						</ace:panel>
+       						
+       						<ace:panel header="#{msgs.label_support_request_table7_other_contributions}">
+       						<ice:outputLabel value="#{msgs.label_support_request_table7_other_contributions_add_participant}"/>
+       						<ace:dataTable value="#{pbSolicitudApoyo.currentSolicitud.participaciones}" var="participacion">
+       							<ace:column headerText="#{msgs.label_support_request_table7_other_contributions_column_amount}">
+       								<ice:inputText value="#{participacion.monto}" />
+       							</ace:column>
+       							<ace:column headerText="#{msgs.label_support_request_table7_other_contributions_column_participant}">
+       								<ice:selectOneMenu value="#{participacion.participante}"
+										converter="EntidadConverter" >
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+										
+										<f:selectItems value="#{pbSolicitudApoyo.participantes}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+       							</ace:column>
+       							<ace:column headerText="#{msgs.label_support_request_table7_other_contributions_column_description}">
+       								<ice:inputText partialSubmit="true" value="#{participacion.descripcion}" />
+       							</ace:column>
+       							<ace:column headerText="">
+       							    <ice:commandButton value="X" actionListener="#{pbSolicitudApoyo.btnEliminaParticipacionAction}">
+       									<f:attribute name="participacion" value="#{participacion}"/>
+       								</ice:commandButton>
+       							</ace:column>
+       						</ace:dataTable>
+       						<ice:commandButton value="#{msgs.label_support_request_table7_other_contributions_add_participant}" styleClass="button" actionListener="#{pbSolicitudApoyo.btnAgregarParticipacionAction}"/>
+       						<ice:panelGroup style="height:50px"/>
+       						<ice:outputLabel value="#{msgs.label_support_request_table7_other_previous_contributions}"/>
+       						<ace:dataTable value="#{pbSolicitudApoyo.currentSolicitud.participacionesAnteriores}" var="participacion">
+       							<ace:column headerText="#{msgs.label_support_request_table7_other_previous_contributions_amount}">
+       								<ice:inputText value="#{participacion.monto}" />
+       							</ace:column>
+       							<ace:column headerText="#{msgs.label_support_request_table7_other_previous_contributions_participant}">
+       								<ice:selectOneMenu value="#{participacion.participante}"
+										converter="EntidadConverter" >
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..." 
+											noSelectionOption="true" />
+										
+										<f:selectItems value="#{pbSolicitudApoyo.participantes}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+       							</ace:column>
+       							<ace:column headerText="#{msgs.label_support_request_table7_other_previous_contributions_description}">
+       								<ice:inputText partialSubmit="true" value="#{participacion.descripcion}" />
+       							</ace:column>
+       							<ace:column headerText="">
+       							    <ice:commandButton value="X"  actionListener="#{pbSolicitudApoyo.btnEliminaParticipacionAnteriorAction}">
+       									<f:attribute name="participacion" value="#{participacion}"/>
+       								</ice:commandButton>
+       							</ace:column>
+       						</ace:dataTable>
+       						<ice:commandButton value="#{msgs.label_support_request_table7_other_previous_contributions_add_participant} " styleClass="button" actionListener="#{pbSolicitudApoyo.btnAgregarParticipacionAnteriorAction}"/>
+       						
+       						</ace:panel>
+       					</ace:accordionPane>
+       					<ace:accordionPane title="#{msgs.label_support_request_table8_title}">
+       						<ace:panel header="#{msgs.label_support_request_table8_project_documentation}">
+       						<ace:dataTable value="#{pbSolicitudApoyo.currentSolicitud.documentosSolicitud}" var="documentoSolicitud">
+       							<ace:column headerText="#{msgs.label_support_request_table8_project_documentation_document}">
+       								<ice:outputText value="#{documentoSolicitud.documento.nombre}" />
+       							</ace:column>
+       							<ace:column headerText="#{msgs.label_support_request_table8_project_documentation_adjunct}">
+       								<ice:inputText partialSubmit="true" value="#{documentoSolicitud.path}" />
+       							</ace:column>
+       						</ace:dataTable>
+       						
+       						</ace:panel>
+       					</ace:accordionPane>
+       				</ace:accordion>
+				</ace:panel>
+				<ice:commandButton  value="#{msgs.label_support_request_save}" actionListener="#{pbSolicitudApoyo.btnGuardaSlicitudAction}"/>
+			</ice:form>
+		</div>
+		<div class="footerDiv">
+			<ice:form id="footerForm">
+			</ice:form>
+		</div>
+	</div>
+</h:body>
+<h:outputStylesheet library="org.icefaces.component.skins"
+	name="rime.css" />
+</html>

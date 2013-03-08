@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="./xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="./styles/estilo.css" />
+	<ice:outputStyle href="./css/style.css" />
+
+</h:head>
+<h:body>
+
+	<div class="bodyDiv" id="header">
+		<div class="headerDiv">
+			<ui:include src="header.xhtml"/>
+      	</div>	
+		<div id="content-main">
+			<div class="content">
+				<ice:form id="contentForm">
+					<div style="height: 20px; width: 950px;" align="center">
+						<ice:panelGroup rendered="#{pbIndex.errorMessage != null}"
+							styleClass="msg_errors_center">
+							<ul>
+								<li><h:outputText value="#{pbIndex.errorMessage}" /></li>
+							</ul>
+						</ice:panelGroup>
+					</div>
+					<div style="height: 20px;" />
+					
+					<ace:panel rendered="#{!inademSessionBean.loggedIn}"
+						styleClass="cuadro_libre" header="#{msgs.label_login_panel}"
+						style="width: 400px; margin:auto">
+						
+						<ice:panelGrid columns="2" styleClass="section_login">
+							<h:outputLabel value="#{msgs.label_email}"
+								styleClass="section_title" />
+							<h:inputText value="#{pbIndex.usuarioId}" styleClass="caja"
+								id="userId"
+								requiredMessage="El campo correo electronico es requerido"
+								required="true" />
+							<h:outputLabel value="" />
+							<h:message for="userId" errorClass="errors" />
+							<h:outputLabel value="#{msgs.label_password}"
+								styleClass="section_title" />
+							<h:inputSecret value="#{pbIndex.password}" styleClass="caja"
+								id="password" requiredMessage="El campo contraseña es requerido"
+								required="true" />
+							<ice:outputLabel value="" />
+							<ice:message for="password" errorClass="errors" />
+						</ice:panelGrid>
+
+						<div style="height: 5px;" />
+						<ice:panelGrid columns="2" styleClass="section_login">
+							<ice:outputLabel value="" />
+							<ice:commandButton value="#{msgs.label_btnLogin}"
+								styleClass="button" actionListener="#{pbIndex.btnLoginAction}" />
+						</ice:panelGrid>
+
+						<div style="height: 5px;" />
+						<ice:panelGrid columns="2" styleClass="section_login">
+							<ice:outputLabel value="" />
+							<ice:commandLink value="#{msgs.label_lnkRegistro}"
+								actionListener="#{pbIndex.linkRegistroAction}" immediate="true" />
+						</ice:panelGrid>
+								
+					</ace:panel>
+					
+								
+					<ice:panelGroup rendered="#{inademSessionBean.loggedIn}">
+					
+						<div class="content-main" align="left">
+			<div class="content">
+			<h1 class="title">Convocatorias</h1>
+			 <div align="left">
+			        <div>
+			        Categoría I.- Programas de Sectores Estratégicos y Desarrollo Regional.
+			        </div>
+			        <ul>
+			        <li>Desarrollo de Proveedores</li>
+			        <li>Competitividad Regional </li>
+					<li>Reactivación Económica </li>
+					<li>Reactivación económica para el Programa Nacional para la Prevención Social de la Violencia y la Delincuencia y la Cruzada Nacional contra el Hambre</li>
+					<li>Obtención de apoyos para proyectos de mejora regulatoria </li>
+					</ul>
+					
+					<div>Categoría II.- Programas de Desarrollo Empresarial
+					
+					</div>
+					 <ul>
+					<li>Creación y fortalecimiento de Redes Estatales de Puntos para Mover a México </li>
+					<li>Creación, fortalecimiento de incubadoras de empresas y esquemas no tradicionales de incubación de la “Red para Mover a México” </li>
+					<li>Creación y fortalecimiento de Aceleradoras de Empresas de la Red para Mover a México </li>
+					<li>Realización de eventos que promuevan los sectores estratégicos, los encadenamientos productivos y el espíritu emprendedor </li>
+					<li>Realización de campañas y Talleres de sensibilización para la cultura emprendedora y desarrollo de habilidades empresariales. </li>
+					<li>Fomento a las Iniciativas de Innovación </li>
+					<li>Bonos al ingenio, innovación e inventiva para emprendedores y microempresas.</li>
+					</ul>
+					
+					<div>
+					Categoría III.- Programas de Emprendedores y Financiamiento
+					</div>
+					
+					<ul>
+					<li>Asesoría para el Acceso al Financiamiento </li>
+					<li>Desarrollo del Ecosistema de Capital Emprendedor</li>
+					<li>Impulso a emprendedores y empresas a través del programa de Emprendimiento de Alto Impacto. </li>
+					</ul>
+					
+					<div>
+					Categoría IV.- Programas para MIPYMES
+					</div>
+					<ul>
+					<li>Incorporación de Tecnologías de Información y Comunicaciones a las Micro, Pequeñas y Medianas Empresas </li>
+					<li>Formación de Capacidades </li>
+					<li>Otorgamiento de Apoyos para el Desarrollo y Adquisición de Franquicias </li>
+					<li>Integración de MIPYMES a las cadenas productivas globales </li>
+					<li>Desarrollo de la oferta exportable </li>
+					<li>Formación de capacidades y adopción de tecnologías en las micro empresas del sector comercio, servicios, turismo y comercio en pequeño </li>
+	
+			        </ul>
+					
+					
+			</div>
+			
+			</div>
+		</div>
+					
+					
+					
+					</ice:panelGroup>
+				
+				</ice:form>
+			</div>
+		</div>
+		<div>
+		<ice:form id="privForm"  rendered="#{!inademSessionBean.loggedIn}">
+			<!-- Descarga con pdf
+				<ace:linkButton value="Ver politicas de privacidad" 
+					actionListener="#{pbIndex.descargarDocumento}"  image="/img/icon/doc.png" > 
+					  	<f:attribute name="archivo" value="convocatoria_1.pdf"  />
+		       </ace:linkButton> -->
+				<ace:linkButton value="| Politicas de privacidad" 
+					href="politicas.faces" styleClass="seccion_footer"> 
+					<f:attribute name="archivo" value="convocatoria_1.pdf" />
+		       </ace:linkButton>
+           </ice:form>
+		</div>
+		<div id="footer">
+			<ui:include src="footer.xhtml"/>
+		</div>
+	</div>
+	 <link type="text/css" rel="stylesheet" href="http://www.encuentra.gob.mx/css/apf.css"/>
+    <script type="text/javascript" src="http://www.encuentra.gob.mx/api/gobmxWidgetAPI-min.js"></script>
+    <script type="text/javascript" src="http://www.encuentra.gob.mx/properties/gobmxWidgetAPI-conf.js"></script>
+    <script>
+      _gmx.loadGobMXsearchAPI({container:'gobmx-searchbox-container-se',client:'se',newWindow:true});
+      
+    </script>
+    <script type="text/javascript" src="js/utils/jquery.min.js"></script>
+    <script type="text/javascript" src="js/utils/general.js"></script>
+    <script type="text/javascript" src="js/utils/slideMe.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</h:body>
+</html>

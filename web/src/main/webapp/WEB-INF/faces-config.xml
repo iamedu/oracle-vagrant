@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+    version="2.1">
+    <application>
+    <locale-config>            
+        <default-locale>es</default-locale>
+        <supported-locale>en</supported-locale>
+    </locale-config>
+    <resource-bundle>
+        <base-name>
+           mx.gob.economia.inadem.resources.messages
+        </base-name>
+        <var>msgs</var>
+    </resource-bundle>
+	</application>
+	<converter>
+		<display-name>EntidadConverter</display-name>
+		<converter-id>EntidadConverter</converter-id>
+		<converter-class>mx.gob.economia.inadem.converters.EntidadConverter</converter-class>
+	</converter> 
+	<managed-bean>
+		<managed-bean-name>pbRegistro</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.ui.registro.RegistroPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>pbSolicitud</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.ui.solicitud.SolicitudPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>pbFileUploader</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.util.FileUploaderPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>pbMiCuenta</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.ui.micuenta.MiCuentaPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>inademSessionBean</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.beans.InademSessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>pbIndex</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.ui.IndexPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>pbConvocatoria</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.ui.solicitud.ConvocatoriaPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>pbListaSolicitudes</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.ui.solicitud.ListaSolicitudesPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>pbUtilities</managed-bean-name>
+		<managed-bean-class>mx.gob.economia.inadem.util.UtilitiesPageBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>LOGOUT</from-outcome>
+			<to-view-id>index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>CONVOCATORIAS</from-outcome>
+			<to-view-id>/solicitud/convocatorias.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>SOLICITUD</from-outcome>
+			<to-view-id>/solicitud/listaSolicitudes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+		<from-outcome>CUENTA</from-outcome>
+			<to-view-id>/micuenta/micuenta.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>START</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule> 
+</faces-config>

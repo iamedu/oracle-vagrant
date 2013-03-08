@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="./xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="../styles/estilo.css" />
+	<ice:outputStyle href="../css/style.css" />
+</h:head>
+<h:body>
+
+	<div class="bodyDiv" id="header">
+		<div class="headerDiv">
+				<ui:include src="../header.xhtml"/>
+   		</div>
+		<div class="menuDiv">
+			<ice:form id="menuForm">
+				<ice:panelGroup rendered="#{inademSessionBean.loggedIn}">
+					<ice:menuBar>
+						<ice:menuItem value="INICIO" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="START" />
+						</ice:menuItem>
+						<ice:menuItem value="CONVOCATORIAS" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CONVOCATORIAS" />
+						</ice:menuItem>
+						<ice:menuItem value="MIS SOLICITUDES" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="SOLICITUD" />
+						</ice:menuItem>
+						<ice:menuItem value="MI CUENTA" rendered="false"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CUENTA" />
+						</ice:menuItem>
+						<ice:menuItem value="SALIR" action="#{pbIndex.menuBarCommand}" rendered="false">
+							<f:param name="menuParam" value="LOGOUT" />
+						</ice:menuItem>
+					</ice:menuBar>
+				</ice:panelGroup>
+			</ice:form>
+		</div>
+		<div class="messagesDiv"></div>		
+		<div id="content-main">
+			<div class="conten">
+			<ice:form id="contentForm">
+				<h1>
+					<ice:outputLabel
+						value="#{pbSolicitud.currentSolicitud.convocatoria.nombre}" />
+				</h1>
+				<div style="width:960px;margin: auto" align="left">
+				<ace:panel header="Solicitud de Apoyo">
+					<ice:panelGrid columns="1">
+						<ice:outputLabel
+							value="1) Registro Federal de Contribuyentes del beneficiario /Org. Intermedio" />
+						<ice:outputText value="#{pbSolicitud.currentSolicitud.rfc}" />
+					</ice:panelGrid>
+					<ace:accordion autoHeight="false">
+						<ace:accordionPane
+							title="I. Datos del beneficiario que firma el proyecto">
+							<ice:panelGrid columns="1">
+								<ice:outputLabel value="2) Denominación o razón social" />
+								<ice:outputText
+									value="#{pbSolicitud.currentSolicitud.razonSocial}" />
+							</ice:panelGrid>
+							<ace:panel header="3)Dirección">
+								<ice:panelGrid columns="4">
+									<ice:outputLabel value="Tipo Vialidad:" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidad.nombre}" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Nombre Vialidad:" />
+									<ice:outputLabel value="Numero Exterior 1:" />
+									<ice:outputLabel value="Numero Exterior 2:" />
+									<ice:outputLabel value="Numero Interior:" />
+
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.calle}" />
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.numeroExterior}" />
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.numeroExterior2}" />
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.numeroInterior}" />
+
+									<ice:outputLabel value="Tipo Asentamiento:" />
+									<ice:outputLabel value="Colonia:" />
+									<ice:outputLabel value="Codigo Postal:" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.tipoAsentamiento.nombre}" />
+
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.colonia}" />
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.codigoPostal}" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Estado:" />
+									<ice:outputLabel value="Municipio:" />
+									<ice:outputLabel value="Localidad" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.estado.nombre}" />
+
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.municipio.nombre}" />
+
+									<ice:inputText readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.localidad}" />
+									<ice:outputLabel value="" />
+
+								</ice:panelGrid>
+								<ace:panel header="Entre Vialidades">
+									<ice:panelGrid columns="2">
+										<ice:outputLabel value="Tipo Vialidad 1:" />
+										<ice:outputLabel value="Nombre Vialidad 1:" />
+										<ice:inputText readonly="true"
+											value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidad1.nombre}" />
+										<ice:inputText readonly="true"
+											value="#{pbSolicitud.currentSolicitud.ubicacion.vialidad1}" />
+
+										<ice:outputLabel value="Tipo Vialidad 2:" />
+										<ice:outputLabel value="Nombre Vialidad 2:" />
+										<ice:inputText readonly="true"
+											value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidad2.nombre}" />
+										<ice:inputText readonly="true"
+											value="#{pbSolicitud.currentSolicitud.ubicacion.vialidad2}" />
+										<ice:outputLabel value="Tipo Vialidad Posterior:" />
+										<ice:outputLabel value="Nombre Vialidad Posterior:" />
+										<ice:inputText readonly="true"
+											value="#{pbSolicitud.currentSolicitud.ubicacion.tipoVialidadPosterior.nombre}" />
+										<ice:inputText readonly="true"
+											value="#{pbSolicitud.currentSolicitud.ubicacion.vialidadPosterior}" />
+
+
+									</ice:panelGrid>
+								</ace:panel>
+								<ice:panelGrid columns="1">
+									<ice:outputLabel value="Descripcion de la ubicacion" />
+									<ice:inputTextarea readonly="true"
+										value="#{pbSolicitud.currentSolicitud.ubicacion.descripcion}"
+										cols="100" rows="2" />
+
+								</ice:panelGrid>
+							</ace:panel>
+
+						</ace:accordionPane>
+						<ace:accordionPane title="II. Datos del representante legal">
+							<ice:panelGrid columns="3">
+								<ice:outputLabel value="Nombre " />
+								<ice:outputLabel value="Apellido Paterno" />
+								<ice:outputLabel value="Apellido Materno" />
+
+								<ice:inputText readonly="true"
+									value="#{pbSolicitud.currentSolicitud.representanteLegal.nombre}" />
+								<ice:inputText readonly="true"
+									value="#{pbSolicitud.currentSolicitud.representanteLegal.apellidoPaterno}" />
+								<ice:inputText readonly="true"
+									value="#{pbSolicitud.currentSolicitud.representanteLegal.apellidoMaterno}" />
+
+								<ice:outputLabel value="CURP " />
+								<ice:outputLabel value="Cargo" />
+								<ice:outputLabel value="" />
+
+								<ice:inputText readonly="true"
+									value="#{pbSolicitud.currentSolicitud.representanteLegal.curp}" />
+								<ice:inputText readonly="true"
+									value="#{pbSolicitud.currentSolicitud.representanteLegal.cargo}" />
+								<ice:outputLabel value="" />
+
+								<ice:outputLabel value="Correo Electronico" />
+								<ice:outputLabel value="Telefono" />
+								<ice:outputLabel value="" />
+
+								<ice:inputText readonly="true"
+									value="#{pbSolicitud.currentSolicitud.representanteLegal.email}" />
+								<ice:inputText readonly="true"
+									value="#{pbSolicitud.currentSolicitud.representanteLegal.telefono}" />
+								<ice:outputLabel value="" />
+
+							</ice:panelGrid>
+						</ace:accordionPane>
+						<ace:accordionPane title="III. Datos generales del proyeto">
+							<ice:panelGrid columns="1">
+								<ice:outputLabel
+									value="10) Nombre del proyecto (Especifique un nombre que describa con precisión el proyecto)." />
+								<ice:inputTextarea
+									value="#{pbSolicitud.currentSolicitud.nombreProyecto }"
+									cols="100" />
+								<ace:panel header="11) Cobertura geográfica">
+									<ice:panelGrid columns="1">
+										<ice:outputLabel value="Cobertura" />
+										<ice:selectOneMenu partialSubmit="true"
+											value="#{pbSolicitud.currentSolicitud.cobertura}">
+											<f:selectItem itemValue="" itemLabel="Seleccione..." />
+											<f:selectItem itemValue="NACIONAL" itemLabel="Nacional" />
+											<f:selectItem itemValue="REGIONAL" itemLabel="Ragional" />
+											<f:selectItem itemValue="ESTATAL" itemLabel="Estatal" />
+											<f:selectItem itemValue="OTRAS" itemLabel="Otras definidas" />
+										</ice:selectOneMenu>
+									</ice:panelGrid>
+									<ice:panelGroup
+										rendered="#{pbSolicitud.currentSolicitud.cobertura == 'REGIONAL'}">
+										<ice:panelGrid columns="1">
+											<ice:outputLabel value="Estados" />
+											<ice:selectManyListbox
+												value="#{pbSolicitud.currentSolicitud.estadosCobertura}"
+												converter="EntidadConverter">
+												<f:selectItems
+													value="#{pbRegistro.catalogoItemsMap['estadosType'].activeItems}"
+													var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+											</ice:selectManyListbox>
+										</ice:panelGrid>
+									</ice:panelGroup>
+									<ice:panelGroup
+										rendered="#{pbSolicitud.currentSolicitud.cobertura == 'ESTATAL'}">
+										<ice:panelGrid columns="1">
+											<ice:outputLabel value="Estado" />
+											<ice:selectOneMenu styleClass="input_large"
+												value="#{pbSolicitud.currentSolicitud.estadoCobertura}"
+												converter="EntidadConverter">
+												<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+													noSelectionOption="true"></f:selectItem>
+												<f:selectItems
+													value="#{pbRegistro.catalogoItemsMap['estadosType'].activeItems}"
+													var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+											</ice:selectOneMenu>
+										</ice:panelGrid>
+									</ice:panelGroup>
+									<ice:panelGroup
+										rendered="#{pbSolicitud.currentSolicitud.cobertura == 'OTRAS'}">
+										<ice:panelGrid columns="1">
+											<ice:outputLabel value="Cobertura Geografica" />
+											<ice:selectOneMenu styleClass="input_large"
+												value="#{pbSolicitud.currentSolicitud.coberturaGeografica}"
+												converter="EntidadConverter">
+												<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+													noSelectionOption="true"></f:selectItem>
+												<f:selectItems
+													value="#{pbRegistro.catalogoItemsMap['coberturaGeograficaType'].activeItems}"
+													var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+											</ice:selectOneMenu>
+										</ice:panelGrid>
+									</ice:panelGroup>
+								</ace:panel>
+							</ice:panelGrid>
+							<ace:panel
+								header="12) En caso de eventos de Promoción, exposiciones o encuentros de negocio deberá registrar la ubicación">
+								<ice:panelGrid columns="4">
+									<ice:outputLabel value="Tipo Vialidad:" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.tipoVialidad}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Nombre Vialidad:" />
+									<ice:outputLabel value="Numero Exterior 1:" />
+									<ice:outputLabel value="Numero Exterior 2:" />
+									<ice:outputLabel value="Numero Interior:" />
+
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.calle}" />
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.numeroExterior}" />
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.numeroExterior2}" />
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.numeroInterior}" />
+
+									<ice:outputLabel value="Tipo Asentamiento:" />
+									<ice:outputLabel value="Colonia:" />
+									<ice:outputLabel value="Codigo Postal:" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.tipoAsentamiento}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['tiposAsentamientoType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.colonia}" />
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.codigoPostal}" />
+									<ice:outputLabel value="" />
+
+									<ice:outputLabel value="Estado:" />
+									<ice:outputLabel value="Municipio:" />
+									<ice:outputLabel value="Localidad" />
+									<ice:outputLabel value="" />
+
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.estado}"
+										converter="EntidadConverter" partialSubmit="true">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbRegistro.catalogoItemsMap['estadosType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:selectOneMenu styleClass="input_large"
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.municipio}"
+										converter="EntidadConverter">
+										<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+											noSelectionOption="true"></f:selectItem>
+										<f:selectItems
+											value="#{pbSolicitud.currentSolicitud.ubicacionEventos.estado.municipios}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.localidad}" />
+									<ice:outputLabel value="" />
+
+								</ice:panelGrid>
+								<ace:panel header="Entre Vialidades">
+									<ice:panelGrid columns="2">
+										<ice:outputLabel value="Tipo Vialidad 1:" />
+										<ice:outputLabel value="Nombre Vialidad 1:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbSolicitud.currentSolicitud.ubicacionEventos.tipoVialidad1}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.ubicacionEventos.vialidad1}" />
+										<ice:outputLabel value="Tipo Vialidad 2:" />
+										<ice:outputLabel value="Nombre Vialidad 2:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbSolicitud.currentSolicitud.ubicacionEventos.tipoVialidad2}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.ubicacionEventos.vialidad2}" />
+										<ice:outputLabel value="Tipo Vialidad Posterior:" />
+										<ice:outputLabel value="Nombre Vialidad Posterior:" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbSolicitud.currentSolicitud.ubicacionEventos.tipoVialidadPosterior}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true"></f:selectItem>
+											<f:selectItems
+												value="#{pbRegistro.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.ubicacionEventos.vialidadPosterior}" />
+
+
+									</ice:panelGrid>
+								</ace:panel>
+								<ice:panelGrid columns="1">
+									<ice:outputLabel value="Descripcion de la ubicacion" />
+									<ice:inputTextarea
+										value="#{pbSolicitud.currentSolicitud.ubicacionEventos.descripcion}"
+										cols="100" rows="2" />
+
+								</ice:panelGrid>
+							</ace:panel>
+							<ace:panel header="13) Resumen ejecutivo del proyecto">
+								<ice:panelGrid columns="1">
+
+									<ice:outputLabel value="Objetivo(s)" cols="100" rows="2" />
+									<ice:inputTextarea
+										value="#{pbSolicitud.currentSolicitud.resumenEjecutivo.objetivo}"
+										cols="80" rows="4" />
+
+									<ice:outputLabel value="Descripción del proyecto" />
+									<ice:inputTextarea
+										value="#{pbSolicitud.currentSolicitud.resumenEjecutivo.descripcion}"
+										cols="80" rows="4" />
+
+									<ice:outputLabel value="Meses de duración del proyecto" />
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.resumenEjecutivo.mesesDuracion}" />
+
+								</ice:panelGrid>
+							</ace:panel>
+
+						</ace:accordionPane>
+						<ace:accordionPane title="IV. Metas del proyecto">
+							<ace:panel
+								header="14) Especificar las metas que generará el proyecto (las que apliquen)">
+								<ice:panelGrid columns="2">
+									<ice:outputLabel value="Empresas Beneficiadas" />
+									<ice:outputLabel value="Empresas Creadas" />
+
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.metaProyecto.empresasBeneficiadas}" />
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.metaProyecto.empresasCreadas}" />
+
+									<ice:outputLabel value="Empleos Conservados" />
+									<ice:outputLabel value="Empleos Creados" />
+
+									<ice:panelGrid columns="4">
+										<ice:outputText value="Mujeres" />
+										<ice:outputText value="Hombres" />
+										<ice:outputText value="Discapacitados" />
+										<ice:outputText value="Indigenas" />
+
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosConservadosM}"
+											size="4" />
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosConservadosH}"
+											size="4" />
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosConservadosD}"
+											size="4" />
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosConservadosI}"
+											size="4" />
+									</ice:panelGrid>
+									<ice:panelGrid columns="4">
+										<ice:outputText value="Mujeres" />
+										<ice:outputText value="Hombres" />
+										<ice:outputText value="Discapacitados" />
+										<ice:outputText value="Indigenas" />
+
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosCreadosM}"
+											size="4" />
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosCreadosH}"
+											size="4" />
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosCreadosD}"
+											size="4" />
+										<ice:inputText
+											value="#{pbSolicitud.currentSolicitud.metaProyecto.empleosCreadosI}"
+											size="4" />
+
+									</ice:panelGrid>
+
+									<ice:outputLabel value="Atencion a emprendedores" />
+									<ice:outputLabel value="" />
+
+									<ice:inputText
+										value="#{pbSolicitud.currentSolicitud.metaProyecto.atencionEmprendedores}" />
+									<ice:outputLabel value="" />
+								</ice:panelGrid>
+							</ace:panel>
+						</ace:accordionPane>
+						<ace:accordionPane
+							title="V. Participantes en el financiamiento del proyecto">
+							<ace:panel
+								header="15) Presupuesto en pesos, con el que participaran las instancias">
+								<ace:dataTable
+									value="#{pbSolicitud.currentSolicitud.presupuestoParticipantes}"
+									var="presupuestoParticipante">
+									<ace:column headerText="Instancia">
+										<ice:outputText
+											value="#{presupuestoParticipante.participante.nombre}" />
+									</ace:column>
+									<ace:column headerText="Monto">
+										<ice:inputText partialSubmit="true"
+											value="#{presupuestoParticipante.monto}" />
+									</ace:column>
+								</ace:dataTable>
+								<ice:outputLabel
+									value="Total = #{pbSolicitud.currentSolicitud.totalPresupuesto}">
+
+								</ice:outputLabel>
+							</ace:panel>
+							<ace:panel header="16) Otras aportaciones">
+								<ice:outputLabel value="Aportaciones en especie" />
+								<ace:dataTable
+									value="#{pbSolicitud.currentSolicitud.participaciones}"
+									var="participacion">
+									<ace:column headerText="Monto">
+										<ice:inputText value="#{participacion.monto}" />
+									</ace:column>
+									<ace:column headerText="Participante">
+										<ice:selectOneMenu value="#{participacion.participante}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" />
+
+											<f:selectItems
+												value="#{pbSolicitud.currentSolicitud.participantes}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+									</ace:column>
+									<ace:column headerText="Descripcion">
+										<ice:inputText partialSubmit="true"
+											value="#{participacion.descripcion}" />
+									</ace:column>
+									<ace:column headerText="">
+										<ice:commandButton value="X"
+											actionListener="#{pbSolicitud.btnEliminaParticipacionAction}">
+											<f:attribute name="participacion" value="#{participacion}" />
+										</ice:commandButton>
+									</ace:column>
+								</ace:dataTable>
+								<ice:commandButton value="Agregar Participacion"
+									actionListener="#{pbSolicitud.btnAgregarParticipacionAction}" />
+								<ice:panelGroup style="height:50px" />
+								<ice:outputLabel value="Participaciones Anteriores" />
+								<ace:dataTable
+									value="#{pbSolicitud.currentSolicitud.participacionesAnteriores}"
+									var="participacion">
+									<ace:column headerText="Monto">
+										<ice:inputText value="#{participacion.monto}" />
+									</ace:column>
+									<ace:column headerText="Participante">
+										<ice:selectOneMenu value="#{participacion.participante}"
+											converter="EntidadConverter">
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" />
+
+											<f:selectItems
+												value="#{pbSolicitud.currentSolicitud.participantes}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+									</ace:column>
+									<ace:column headerText="Descripcion">
+										<ice:inputText partialSubmit="true"
+											value="#{participacion.descripcion}" />
+									</ace:column>
+									<ace:column headerText="">
+										<ice:commandButton value="X"
+											actionListener="#{pbSolicitud.btnEliminaParticipacionAnteriorAction}">
+											<f:attribute name="participacion" value="#{participacion}" />
+										</ice:commandButton>
+									</ace:column>
+								</ace:dataTable>
+								<ice:commandButton value="Agregar Participacion Anterior "
+									actionListener="#{pbSolicitud.btnAgregarParticipacionAnteriorAction}" />
+
+							</ace:panel>
+						</ace:accordionPane>
+						<ace:accordionPane
+							title="VI. Documentación soporte de acuerdo a convocatoria">
+							<ace:panel
+								header="17) Indique la documentacion de soporte con la que cuenta el proyecto">
+								<ace:dataTable
+									value="#{pbSolicitud.currentSolicitud.documentosSolicitud}"
+									var="documentoSolicitud">
+									<ace:column
+										headerText="Documento">
+										<ice:outputText value="#{documentoSolicitud.documento.nombre}" />
+									</ace:column>
+									<ace:column headerText="Adjuntar">
+										<ice:outputLabel value="#{documentoSolicitud.documento.id}" />
+										<ice:outputLabel value="#{documentoSolicitud.path}"/>
+										<ice:inputText partialSubmit="true" value="#{documentoSolicitud.path}" />
+										<ace:fileEntry useOriginalFilename="true"
+											maxFileSize="1000000" 
+											useSessionSubdir="false" 
+											absolutePath="/INADEM/solicitud"
+											maxFileCount="1"
+											fileEntryListener="#{pbFileUploader.listener}"> 
+											<f:param name="documento" value="#{documentoSolicitud}" />
+										</ace:fileEntry>
+									</ace:column>
+									<ace:column
+										headerText="Ver">
+										<ice:inputText partialSubmit="true"
+											value="#{documentoSolicitud.path}" />
+									</ace:column>
+								</ace:dataTable>
+								<h:commandButton value="Cargar Archivos" /> 
+							</ace:panel>
+						</ace:accordionPane>
+					</ace:accordion>
+				</ace:panel>
+				</div>
+				<ice:commandButton value="#{msgs.label_support_request_save}"
+					styleClass="button"
+					actionListener="#{pbSolicitud.btnGuardaSlicitudAction}" />
+			</ice:form>
+		</div>
+			</div>
+		<div id="footer">
+			<ui:include src="../footer.xhtml"/>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/utils/general.js"></script>
+	<script type="text/javascript" src="js/utils/slideMe.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</h:body>
+<h:outputStylesheet library="org.icefaces.component.skins"
+	name="rime.css" />
+</html>

@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+	<title>INADEM</title>
+	<ice:outputStyle href="../xmlhttp/css/rime/rime.css" />
+	<ice:outputStyle href="../styles/estilo.css" />
+	<ice:outputStyle href="../css/style.css" />
+</h:head>
+<h:body>
+
+	<div class="bodyDiv">
+		<div class="headerDiv">
+			<ui:include src="../header.xhtml"/>
+       </div>
+		<div class="menuDiv">
+			<ice:form id="menuForm">
+				<ice:panelGroup rendered="#{inademSessionBean.loggedIn}">
+					<ice:menuBar>
+					    <ice:menuItem value="CONVOCATORIAS"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CONVOCATORIAS" />
+						</ice:menuItem>
+						<ice:menuItem value="MIS SOLICITUDES"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="SOLICITUD" />
+						</ice:menuItem>
+						<ice:menuItem value="MI CUENTA"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="CUENTA" />
+						</ice:menuItem>
+				
+						<ice:menuItem value="Salir"
+							action="#{pbIndex.menuBarCommand}">
+							<f:param name="menuParam" value="LOGOUT" />
+						</ice:menuItem>
+					</ice:menuBar>
+				</ice:panelGroup>
+			</ice:form>
+		</div>
+		<div class="messagesDiv">
+			
+		</div>
+		<div class="contentDiv">
+			
+				<ace:panel header="EDICIÓN DE LOS DATOS DEL PRE-REGISTRO ÚNICO DE CANDIDATOS" styleClass="cuadro_libre" style="margin:auto">
+					
+					<div style="height: 20px;"/>
+				    <ice:panelGroup rendered="#{pbMiCuenta.errorMessage != null}" styleClass="msg_errors" >
+				    	<ul><li><h:outputText value="#{pbMiCuenta.errorMessage}"/></li></ul>
+					</ice:panelGroup>
+					<div style="height: 20px;"/>
+						<h:form id="contentTipoForm">
+						    <ice:panelGrid columns="3">
+						    	<ice:outputLabel value="Tipo de Persona"/>
+						    	<ice:selectOneMenu partialSubmit="true" value="#{pbMiCuenta.currentBeneficiario.tipoPersona}">
+						    		<f:selectItem itemValue="" itemLabel="Seleccione..." />
+						    		<f:selectItem itemValue="MORAL" itemLabel="MORAL" />
+						    		<f:selectItem itemValue="FISICA" itemLabel="FÍSICA" />
+						    	</ice:selectOneMenu>
+						    </ice:panelGrid>
+					    </h:form>
+					    <h:form id="contentFisicaForm">
+					    	<ace:panel header="Datos Generales de la Persona Física" rendered="#{pbMiCuenta.currentBeneficiario.tipoPersona=='FISICA'}">
+				    			<div align="left">
+									<ice:panelGrid columns="3">
+										<ice:outputLabel value="R.F.C." styleClass="section_title" />
+										<ace:maskedEntry  value="#{pbMiCuenta.currentBeneficiario.rfc}}"  styleClass="caja_large_capitals" 
+											id="rfcFisica"  mask="aaaa 99 99 99 aaa" required="true" />
+										<ice:message for="rfcFisica" errorClass="errors" />
+							
+										<ice:outputLabel value="#{msgs.label_name}" styleClass="section_title" />
+										<ice:inputText value="#{pbMiCuenta.currentBeneficiario.nombre}"  required="true"
+											styleClass="caja_large_capitals"  id="nombre" 
+											requiredMessage="El campo nombre es requerido" />
+										<ice:message for="nombre" errorClass="errors" />
+
+										<ice:outputLabel value="#{msgs.label_first_name}" styleClass="section_title" />
+										<ice:inputText
+											value="#{pbMiCuenta.currentBeneficiario.apellidoPaterno}"
+											styleClass="caja_large_capitals" id="apaterno"
+											requiredMessage="El campo apellido paterno es requerido" required="true" />
+										<ice:message for="apaterno" errorClass="errors" />
+
+										<ice:outputLabel value="#{msgs.label_last_name}" styleClass="section_title" />
+										<ice:inputText value="#{pbMiCuenta.currentBeneficiario.apellidoMaterno}"
+											styleClass="caja_large_capitals" id="amaterno"
+											requiredMessage="El campo apellido materno es requerido" required="true"/>
+										<ice:message for="amaterno" errorClass="errors" />
+
+										<ice:outputLabel value="#{msgs.label_email}" styleClass="section_title" />
+										<ice:inputText value="#{pbMiCuenta.currentBeneficiario.email}"
+											styleClass="caja_large" id="email"
+											requiredMessage="El campo correo electrónico es requerido"  validatorMessage="El campo email es inválido" required="true">
+									 	 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+									 	</ice:inputText>	
+									 	<ice:message for="email"  styleClass="errors" errorClass="errors" />
+							
+										<ice:outputLabel value="#{msgs.label_confirm_email}" styleClass="section_title" />
+										<ice:inputText value="#{pbMiCuenta.confirmacionCorreo}"
+											styleClass="caja_large" id="emailconfirm"
+											requiredMessage="El campo confirmación de correo electrónico es requerido" validatorMessage="El campo de confirmación de email es inválido"  required="true">
+									  		<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+									  	</ice:inputText>		
+										<ice:message for="emailconfirm" errorClass="errors" />
+
+										<ice:outputLabel value="#{msgs.label_access_password}" styleClass="section_title" />
+										<ice:inputSecret redisplay="true"
+											value="#{pbMiCuenta.currentBeneficiario.password}"
+											styleClass="caja_large" id="password"
+											requiredMessage="El campo contraseña es requerido" validatorMessage="El campo contraseña es inválido (longitud min 8)" required="true">
+											<f:validateLength minimum="8"/>
+									    </ice:inputSecret>		
+										<ice:message for="password" errorClass="errors" />
+										
+										
+										<ice:outputLabel value="#{msgs.label_access_confirm_password}" styleClass="section_title" />
+										<ice:inputSecret redisplay="true" value="#{pbMiCuenta.confirmacionPassword}"
+											styleClass="caja_large" id="passwordconfirm"
+											requiredMessage="#{msgs.access_password_empty}" validatorMessage="El campo contraseña es inválido (longitud min 8)" required="true" >
+											 <f:validateLength minimum="8"/>
+									    </ice:inputSecret>		
+										<ice:message for="passwordconfirm" errorClass="errors" />
+
+										<ice:outputLabel value="#{msgs.label_security_question}" styleClass="section_title" />
+										<ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.preguntaSeguridad}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+												value="#{pbMiCuenta.catalogoItemsMap['preguntaSeguridadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+										</ice:selectOneMenu>
+										<ice:outputLabel value="" />
+
+										<ice:outputLabel value="#{msgs.label_security_answer}" styleClass="section_title" />
+										<ice:inputText id="respuestaPregunta"
+											value="#{pbMiCuenta.currentBeneficiario.respuestaPregunta}"
+											styleClass="caja_large" requiredMessage="El campo respuesta pregunta es requerido" required="true">
+										</ice:inputText>
+										<ice:message for="respuestaPregunta" errorClass="errors" />
+
+									</ice:panelGrid>
+									<br/>
+									<ace:panel header="Ubicación">
+										<ice:panelGrid columns="4">
+											<ice:outputLabel value="Tipo Vialidad:" styleClass="section_title"/>
+											<ice:outputLabel value=""/>
+											<ice:outputLabel value=""/>
+											<ice:outputLabel value=""/>
+								
+											<ice:selectOneMenu styleClass="input_large"
+												value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidad}"
+												converter="EntidadConverter" >
+												<f:selectItem itemValue="-1" itemLabel="Seleccione..."  noSelectionOption="true" />
+												<f:selectItems
+												value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+											</ice:selectOneMenu>
+											<ice:outputLabel value=""/>
+											<ice:outputLabel value=""/>
+											<ice:outputLabel value=""/>
+											
+											<ice:outputLabel value="Nombre Vialidad:" styleClass="section_title"/>
+											<ice:outputLabel value="Número Exterior 1:" styleClass="section_title"/>
+											<ice:outputLabel value="Número Exterior 2:" styleClass="section_title"/>
+											<ice:outputLabel value="Número Interior:" styleClass="section_title"/>
+											
+											<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.calle}" id="calle" requiredMessage="El campo calle es requerido" required="true" />
+											<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.numeroExterior}" id="numExt" requiredMessage="El campo numero exterior es requerido" required="true"/>
+											<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.numeroExterior2}" />
+											<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.numeroInterior}" id="numInt" requiredMessage="El campo numero interior es requerido" required="true"/>
+											
+											<ice:message for="calle" errorClass="errors" />
+											<ice:message for="numExt" errorClass="errors" />
+											<ice:outputLabel value=""/>
+											<ice:message for="numInt" errorClass="errors" />
+								
+											<ice:outputLabel value="Tipo Asentamiento:"/>
+											<ice:outputLabel value="Colonia:"/>
+											<ice:outputLabel value="Código Postal:"/>
+											<ice:outputLabel value=""/>
+											
+											<ice:selectOneMenu styleClass="input_large"
+												value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoAsentamiento}"
+												converter="EntidadConverter" >
+												<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+												<f:selectItems
+													value="#{pbMiCuenta.catalogoItemsMap['tiposAsentamientoType'].activeItems}"
+													var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+											</ice:selectOneMenu>
+											<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.colonia}" id="colonia"  requiredMessage="El campo calle es requerido" required="true"/>
+											<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.codigoPostal}" id="codigoPostal"  requiredMessage="El campo codigo postal es requerido" required="true"/>
+											
+											<ice:outputLabel value=""/>
+											<ice:message for="colonia" errorClass="errors" />
+											<ice:message for="codigoPostal" errorClass="errors" />
+											<ice:outputLabel value=""/>
+											<ice:outputLabel value=""/>
+											
+											<ice:outputLabel value="Estado:"/>
+											<ice:outputLabel value="Municipio:"/>
+											<ice:outputLabel value="Localidad"/>
+											<ice:outputLabel value=""/>
+											
+											<ice:selectOneMenu styleClass="input_large"
+												value="#{pbMiCuenta.currentBeneficiario.ubicacion.estado}"
+												converter="EntidadConverter"
+												partialSubmit="true"
+												 >
+												<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+													noSelectionOption="true" ></f:selectItem>
+												<f:selectItems
+												value="#{pbMiCuenta.catalogoItemsMap['estadosType'].activeItems}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+											</ice:selectOneMenu>
+										
+											<ice:selectOneMenu styleClass="input_large"
+												value="#{pbMiCuenta.currentBeneficiario.ubicacion.municipio}"
+												converter="EntidadConverter" >
+												<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+													noSelectionOption="true" ></f:selectItem>
+												<f:selectItems
+												value="#{pbMiCuenta.currentBeneficiario.ubicacion.estado.municipios}"
+												var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+											</ice:selectOneMenu>
+											<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.localidad}" id="localidad"  requiredMessage="El campo localidad es requerido" required="true"/>
+											<ice:message for="localidad" errorClass="errors" />
+											
+										</ice:panelGrid>
+										<ace:panel header="Entre Vialidades">
+										    <ice:panelGrid columns="2">
+										    	<ice:outputLabel value="Tipo Vialidad 1:"/>
+											    <ice:outputLabel value="Nombre Vialidad 1:"/>
+											    <ice:selectOneMenu styleClass="input_large"
+														value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidad1}"
+														converter="EntidadConverter" >
+														<f:selectItem itemValue="-1" itemLabel="Seleccione..." noSelectionOption="true" />
+														<f:selectItems
+														value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+														var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+												</ice:selectOneMenu>
+												<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.vialidad1}"/>
+											    <ice:outputLabel value="Tipo Vialidad 2:"/>
+											    <ice:outputLabel value="Nombre Vialidad 2:"/>
+											    <ice:selectOneMenu styleClass="input_large"
+														value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidad2}"
+														converter="EntidadConverter" >
+														<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+															noSelectionOption="true" ></f:selectItem>
+														<f:selectItems
+														value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+														var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+												</ice:selectOneMenu>
+												<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.vialidad2}"/>
+												<ice:outputLabel value="Tipo Vialidad Posterior:"/>
+											    <ice:outputLabel value="Nombre Vialidad Posterior:"/>
+											    <ice:selectOneMenu styleClass="input_large"
+														value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidadPosterior}"
+														converter="EntidadConverter" >
+														<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+															noSelectionOption="true" ></f:selectItem>
+														<f:selectItems
+														value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+														var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+												</ice:selectOneMenu>
+												<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.vialidadPosterior}"/>
+											</ice:panelGrid>
+										</ace:panel>
+										<ice:panelGrid columns="1">
+											<ice:outputLabel value="Descripción de la ubicación" />
+				       						<ice:inputTextarea  value="#{pbMiCuenta.currentBeneficiario.ubicacion.descripcion}" cols="100" rows="2"/>
+				       					</ice:panelGrid>
+									</ace:panel>
+						
+									<br />
+									<br />
+									<ice:panelGrid columns="1">
+										<ice:commandButton value="Registrar" styleClass="button" actionListener="#{pbMiCuenta.btnEnviarAction}" />
+									</ice:panelGrid>
+						
+								</div>
+
+
+					</ace:panel>
+				
+				    </h:form>
+				    <h:form id="contentMoralForm">
+				    <ace:panel header="Datos Generales de la Persona Moral" rendered="#{pbMiCuenta.currentBeneficiario.tipoPersona=='MORAL'}">
+				    
+					<div align="left">
+						<ice:panelGrid columns="3">
+						    <ice:outputLabel value="R.F.C." styleClass="section_title" />
+							<ace:maskedEntry  value="#{pbMiCuenta.currentBeneficiario.rfc}"  styleClass="caja_large_capitals" 
+								id="rfcMoral" mask="aaa 99 99 99 aaa" required="true" />
+							<ice:message for="rfc" errorClass="errors" />
+							
+							<ice:outputLabel value="RazónSocial" styleClass="section_title" />
+							<ice:inputText value="#{pbMiCuenta.currentBeneficiario.nombre}"
+								styleClass="caja_large_capitals" id="razon"
+								requiredMessage="El campo razón social es requerido" required="true" />
+							<ice:message for="razon" errorClass="errors" />
+
+							<ice:outputLabel value="#{msgs.label_email}" styleClass="section_title" />
+							<ice:inputText value="#{pbMiCuenta.currentBeneficiario.email}"
+								styleClass="caja_large" id="email"
+								requiredMessage="El campo correo electrónico es requerido"  validatorMessage="El campo email es inválido" required="true">
+						 	 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						 	</ice:inputText>	
+						 		
+							<ice:message for="email"  styleClass="errors" errorClass="errors" />
+							
+
+							<ice:outputLabel value="#{msgs.label_confirm_email}" styleClass="section_title" />
+							<ice:inputText value="#{pbMiCuenta.confirmacionCorreo}"
+								styleClass="caja_large" id="emailconfirm"
+								requiredMessage="El campo confirmación de correo electrónico es requerido" validatorMessage="El campo confirmacion de email es inválido"  required="true">
+						  		<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						  	</ice:inputText>		
+							<ice:message for="emailconfirm" errorClass="errors" />
+
+							<ice:outputLabel value="#{msgs.label_access_password}" styleClass="section_title" />
+							<ice:inputSecret redisplay="true"
+								value="#{pbMiCuenta.currentBeneficiario.password}"
+								styleClass="caja_large" id="password"
+								requiredMessage="El campo contraseña es requerido" validatorMessage="El campo contraseña es inválido (longitud min 8)" required="true">
+								<f:validateLength minimum="8"/>
+				
+						    </ice:inputSecret>		
+							<ice:message for="password" errorClass="errors" />
+
+							<ice:outputLabel value="#{msgs.label_access_confirm_password}"
+								styleClass="section_title" />
+							<ice:inputSecret redisplay="true" value="#{pbMiCuenta.confirmacionPassword}"
+								styleClass="caja_large" id="passwordconfirm"
+								requiredMessage="#{msgs.access_password_empty}" validatorMessage="El campo contraseña es inválido (longitud min 8)" required="true" >
+								 <f:validateLength minimum="8"/>
+						    </ice:inputSecret>		
+							<ice:message for="passwordconfirm" errorClass="errors" />
+
+
+							<ice:outputLabel value="#{msgs.label_security_question}"
+								styleClass="section_title" />
+							<ice:selectOneMenu styleClass="input_large"
+								value="#{pbMiCuenta.currentBeneficiario.preguntaSeguridad}"
+								converter="EntidadConverter" >
+								<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+									noSelectionOption="true" ></f:selectItem>
+								<f:selectItems
+									value="#{pbMiCuenta.catalogoItemsMap['preguntaSeguridadType'].activeItems}"
+									var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+							</ice:selectOneMenu>
+							<ice:outputLabel value="" />
+
+							<ice:outputLabel value="#{msgs.label_security_answer}"
+								styleClass="section_title" />
+							<ice:inputText id="respuestaPregunta"
+								value="#{pbMiCuenta.currentBeneficiario.respuestaPregunta}"
+								styleClass="caja_large" requiredMessage="El campo respuesta pregunta es requerido" required="true">
+							</ice:inputText>
+							<ice:message for="respuestaPregunta" errorClass="errors" />
+
+						</ice:panelGrid>
+						<br/>
+						<ace:panel header="ubicación">
+							<ice:panelGrid columns="4">
+								<ice:outputLabel value="Tipo Vialidad:"/>
+								<ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidad}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+								</ice:selectOneMenu>
+								<ice:outputLabel value=""/>
+								<ice:outputLabel value=""/>
+					
+								
+								<ice:outputLabel value="Nombre Vialidad:"/>
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.calle}" id="calle" requiredMessage="El campo nombre vialidad es requerido" required="true" />
+								<ice:message for="calle" errorClass="errors" />
+								<ice:outputLabel value=""/>
+								
+							
+								<ice:outputLabel value="Número Exterior 1:"/>
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.numeroExterior}" id="numExt" requiredMessage="El campo numero exterior es requerido" required="true"/>
+								<ice:message for="numExt" errorClass="errors" />
+								<ice:outputLabel value=""/>
+								
+								
+								<ice:outputLabel value="Número Exterior 2:"/>
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.numeroExterior2}" />
+								<ice:outputLabel value=""/>
+								<ice:outputLabel value=""/>
+								
+								<ice:outputLabel value="Número Interior:"/>
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.numeroInterior}" id="numInt" requiredMessage="El campo numero interior es requerido" required="true"/>
+								<ice:message for="numInt" errorClass="errors" />
+								<ice:outputLabel value=""/>
+								
+								
+								<ice:outputLabel value="Tipo Asentamiento:"/>
+								<ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoAsentamiento}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbMiCuenta.catalogoItemsMap['tiposAsentamientoType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+								</ice:selectOneMenu>
+								<ice:outputLabel value=""/>
+								<ice:outputLabel value=""/>
+								
+								<ice:outputLabel value="Colonia:"/>
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.colonia}"  id="colonia" requiredMessage="El campo colonia es requerido" required="true"/>
+								<ice:message for="colonia" errorClass="errors" />
+								<ice:outputLabel value=""/>
+								
+								<ice:outputLabel value="Código Postal:"/>
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.codigoPostal}" id="cp" requiredMessage="El campo código postal es requerido" required="true"/>
+								<ice:message for="cp" errorClass="errors" />
+								<ice:outputLabel value=""/>
+								
+								<ice:outputLabel value="Estado:"/>
+								<ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.estado}"
+											converter="EntidadConverter"
+											partialSubmit="true"
+											 >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbMiCuenta.catalogoItemsMap['estadosType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+								</ice:selectOneMenu>
+								<ice:outputLabel value=""/>
+								<ice:outputLabel value=""/>
+								
+								
+								<ice:outputLabel value="Municipio:"/>
+								<ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.municipio}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.estado.municipios}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+								</ice:selectOneMenu>
+								<ice:outputLabel value=""/>
+								<ice:outputLabel value=""/>
+								
+								<ice:outputLabel value="Localidad"/>
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.localidad}" id="localidad"  requiredMessage="El campo localidad es requerido" required="true"/>
+								<ice:message for="localidad" errorClass="errors" />
+								<ice:outputLabel value=""/>
+								
+											
+							</ice:panelGrid>
+							<ace:panel header="Entre Vialidades">
+							    <ice:panelGrid columns="3">
+							    	<ice:outputLabel value="Tipo Vialidad 1:"/>
+							    	<ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidad1}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:outputLabel value=""/>
+							    	
+							    	<ice:outputLabel value="Nombre Vialidad 1:"/>
+								    <ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.vialidad1}" id="nombreVialidad1"  requiredMessage="El campo nombre vialidad 1 es requerido" required="true"/>
+								   	<ice:message for="tipoVialidad1" errorClass="errors" />
+								
+								  
+								    <ice:outputLabel value="Tipo Vialidad 2:"/>
+								    <ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidad2}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:outputLabel value=""/>
+								    
+								    
+								    <ice:outputLabel value="Nombre Vialidad 2:"/>
+									<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.vialidad2}" id="nombreVialidad2"  requiredMessage="El campo nombre vialidad 2 es requerido" required="true"/>
+									<ice:message for="nombreVialidad2" errorClass="errors" />
+									
+								
+									<ice:outputLabel value="Tipo Vialidad Posterior:"/>
+									 <ice:selectOneMenu styleClass="input_large"
+											value="#{pbMiCuenta.currentBeneficiario.ubicacion.tipoVialidadPosterior}"
+											converter="EntidadConverter" >
+											<f:selectItem itemValue="-1" itemLabel="Seleccione..."
+												noSelectionOption="true" ></f:selectItem>
+											<f:selectItems
+											value="#{pbMiCuenta.catalogoItemsMap['tiposVialidadType'].activeItems}"
+											var="cat" itemValue="#{cat}" itemLabel="#{cat.nombre}" />
+									</ice:selectOneMenu>
+									<ice:outputLabel value=""/>
+									
+									
+								    <ice:outputLabel value="Nombre Vialidad Posterior:"/>
+									<ice:inputText value="#{pbMiCuenta.currentBeneficiario.ubicacion.vialidadPosterior}"/>
+								    <ice:outputLabel value=""/>
+								    
+							    </ice:panelGrid>
+							</ace:panel>
+							<ice:panelGrid columns="1">
+								<ice:outputLabel value="Descripción de la ubicación" />
+	       						<ice:inputTextarea  value="#{pbMiCuenta.currentBeneficiario.ubicacion.descripcion}" cols="100" rows="2"/>
+	       								
+							</ice:panelGrid>
+						</ace:panel>
+						<ace:panel header="Representante Legal">
+							<ice:panelGrid columns="3">
+								<ice:outputLabel value="Nombre " />
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.representanteLegal.nombre}" id="nombreRepresentante" />
+								<ice:message for="nombreRepresentante" errorClass="errors" />
+								
+					
+								<ice:outputLabel value="Apellido Paterno" />
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.representanteLegal.apellidoPaterno}" id="apellidoPaternoRep"  />
+								<ice:message for="apellidoPaternoRep" errorClass="errors" />
+							
+								
+								<ice:outputLabel value="Apellido Materno" />
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.representanteLegal.apellidoMaterno}" id="apellidoMaternoRep"  />
+								<ice:message for="apellidoMaternoRep" errorClass="errors" />
+								        
+								<ice:outputLabel value="CURP " />
+								<ace:maskedEntry  value="#{pbMiCuenta.currentBeneficiario.representanteLegal.curp}" styleClass="caja_large_capitals" 
+									id="curp" mask="aaaa 99 99 99 aaaaaa 99" />
+								<ice:message for="curp" errorClass="errors" />
+								
+								
+								<ice:outputLabel value="Cargo" />
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.representanteLegal.cargo}" id="cargo" />
+								<ice:message for="cargo" errorClass="errors" />
+						
+						
+								<ice:outputLabel value="Correo electrónico" />
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.representanteLegal.email}" id="emailRep" />
+								<ice:message for="emailRep" errorClass="errors" />
+							
+								<ice:outputLabel value="Teléfono" />		
+								<ice:inputText value="#{pbMiCuenta.currentBeneficiario.representanteLegal.telefono}" id="telefonoRep" />
+								<ice:message for="telefonoRep" errorClass="errors" />
+								
+								<ice:outputLabel value="" /> 
+								
+							</ice:panelGrid>
+						</ace:panel>
+						<br />
+						<ice:panelGrid columns="1">
+							<ice:commandButton value="Guardar cambios" styleClass="button" actionListener="#{pbMiCuenta.btnEnviarAction}" />
+
+						</ice:panelGrid>
+						
+
+
+					</div>
+
+
+					</ace:panel>
+				
+				    </h:form>
+				</ace:panel>
+		</div>
+		<div id="footer">
+			
+			<ui:include src="../footer.xhtml"/>
+		</div>
+		
+		
+	</div>
+	<h:form id="confirmaRegistroForm">
+		<ice:panelPopup rendered="#{pbMiCuenta.panelConfirmacionVisible}"
+			draggable="true" modal="true" clientOnly="true" autoCentre="false"
+			positionOnLoadOnly="true">
+			<f:facet name="header">
+				<ice:panelGroup style="width:400px;">
+					<ice:outputText value="Confirmación de edición de cuenta" />
+				</ice:panelGroup>
+			</f:facet>
+			<f:facet name="body">
+				<ice:panelGroup>
+					<ice:outputText value="Confirmación de edición de cuenta" />
+					<ice:inputSecret redisplay="true"
+						value="#{pbMiCuenta.passwordAnterior}"
+						styleClass="caja_large" id="passwordCambia">
+					</ice:inputSecret>		
+				    <ice:panelGroup rendered="#{pbMiCuenta.errorMessagePassword != null}" styleClass="msg_errors" >
+				    	<h:outputText value="#{pbMiCuenta.errorMessagePassword}"/>
+					</ice:panelGroup>
+				   		
+					<ice:commandButton value="#{msgs.label_myaccount_admin_save_confirm}" actionListener="#{pbMiCuenta.btnAceptarConfirmacionAction}" />
+					<ice:commandButton value="#{msgs.label_myaccount_admin_save_cancel}" actionListener="#{pbMiCuenta.btnCancelConfirmacionAction}" />
+				</ice:panelGroup>
+			</f:facet>
+		</ice:panelPopup>
+	
+	</h:form>
+	
+</h:body>
+<h:outputStylesheet library="org.icefaces.component.skins"
+	name="rime.css" />
+</html>
